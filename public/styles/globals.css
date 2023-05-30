@@ -16,3 +16,17 @@
   }
 }
 
+.d{
+   background-color: red;
+}
+
+.box-shadow-type-one{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+input:focus, button:focus, textarea:focus, textarea:focus, input:active, button:active, textarea:active, input:active, input, textarea, button {
+  outline-style: none !important;
+  outline: none !important;
+  outline: 0 !important;
+  /* border: 1px solid #17a2b8; Turquoise color */
+}
