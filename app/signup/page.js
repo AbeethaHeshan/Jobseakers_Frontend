@@ -37,10 +37,9 @@ export default function Index() {
         </div>
 
         <div  style={{height:'92vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
-              <div className='box-shadow-type-one' style={{height:'400px',width:'700px',borderRadius:'15px',display:'flex',flexDirection:'column',alignItems:'center'}}>
-                    <span>
-                       Join as a client or freelancer
-                    </span>
+              <div className='box-shadow-type-one' style={{height:'400px',width:'700px',borderRadius:'15px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-evenly'}}>
+               
+                     <Image  src={"/images/signup/title.png"} width={300} height={50}/>
 
                     <ul style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center',width:'80%',height:'200px',columnGap:'30px'}}>
                            {
