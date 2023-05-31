@@ -35,6 +35,12 @@ input:focus, button:focus, textarea:focus, textarea:focus, input:active, button:
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.box-shadow-type-Three{
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+
+
 input[type="radio"] {
   appearance: none;
   width: 15px;
@@ -49,3 +55,4 @@ input[type="radio"]:checked {
   border-color: #6149D8;
   background-color: #6149D8;
 }
+

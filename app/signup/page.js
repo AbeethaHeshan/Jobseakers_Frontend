@@ -5,8 +5,8 @@ import Button from '@/components/button';
 import { useRouter } from 'next/navigation';
 
 const data = [
-    ["/images/signup/1.png" , "I’m a client,\nhiring for a project" , 'client'],  //"I’m a client,'\n'hiring for a project"
-    ["/images/signup/2.png" , "I’m a freelancer,\nlooking for work ", 'employee']     //I’m a freelancer,'\n'looking for work
+    ["/images/signup/1.png" , "I’m a client,\nhiring for a project" , 'client'],  
+    ["/images/signup/2.png" , "I’m a freelancer,\nlooking for work ", 'employee']
 ] 
 
 export default function Index() {
@@ -20,9 +20,9 @@ export default function Index() {
           case 'client':
             router.push('/signup/client');
             break;
-          default:
-            router.push('/signup/employee');
-            break;
+          case 'employee':
+               router.push('/signup/employee');
+                break;
         }
       };
 
@@ -31,7 +31,7 @@ export default function Index() {
        <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
              <div style={{width:'100%',height:'40px',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingLeft:'10px',paddingRight:'10px'}}>
                   <div style={{display:'flex',flexDirection:'row',height:'20px',alignItems:'center'}}>               
-                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}}/>
+                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}} onClick={()=>router.push('/landing')}/>
                   </div>
              </div>
         </div>
@@ -70,8 +70,12 @@ export default function Index() {
                             
                      </ul>
                    
-                    <div style={{width:'40%'}}>
+                    <div style={{width:'40%',display:'flex',flexDirection:'column',alignItems:'center'}}>
                         <Button title={"Create Account"} width={"100%"} height={"35px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>onChangeRoute(selectedValue)} />
+                        <div style={{display:'flex',flexDirection:'row'}}>
+                            <label style={{fontSize:'13px',bottom:'-25px',right:'0'}}>Already have an account ?</label>
+                            <label style={{fontSize:'13px',bottom:'-25px',right:'0',color:'#6149D8',cursor:'pointer'}} onClick={()=>{router.push('/login')}}>Login</label>
+                        </div>
                     </div>
               </div>
         </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function TextField(props) {
     const inputStyle = {
-        border: '1px solid #999',
+        border: props.borderColor != null ? `2px solid ${props.borderColor}` : '1px solid #999',
         borderRadius:props.borderRadius!= null ? props.borderRadius : '100px',
         padding: '5px',
         width: props.width,

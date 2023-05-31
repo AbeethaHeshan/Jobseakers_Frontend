@@ -8,16 +8,18 @@ export default function AuthField(props) {
         width: props.width,
         height: props.height,
         border:'none',
-        paddingLeft:'30px',
-        paddingRight:'10px',
+        paddingLeft:  props.icon == null ? "18px" : '30px',
+        paddingRight: props.icon == null ? "18px" :'10px',
       };
     
     
   return (
     <div style={{position:'relative'}}>
      
-        <Image src={props.icon} width={20} height={5}  style={{position:'absolute',top:'0',left:"5px",bottom:'0',margin:'auto'}}/>
-    
+
+       {
+        props.icon != null  ?         <Image src={props.icon} width={20} height={5}  style={{position:'absolute',top:'0',left:"5px",bottom:'0',margin:'auto'}}/> : ""
+       }
       <input
         className='box-shadow-type-one'
         type ={ props.type == "text"  ? "text" : "password"}

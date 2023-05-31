@@ -2,7 +2,7 @@
 import '../public/styles/fonts.css'
 import '../app/globals.css'
 import '../public/styles/border.css'
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 

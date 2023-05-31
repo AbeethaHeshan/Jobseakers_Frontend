@@ -12,7 +12,7 @@ export default function Login() {
        <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
              <div style={{width:'100%',height:'40px',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingLeft:'10px',paddingRight:'10px'}}>
                   <div style={{display:'flex',flexDirection:'row',height:'20px',alignItems:'center'}}>               
-                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}}/>
+                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}} onClick={()=>router.push('/landing')}/>
                   </div>
                   <div style={{display:'flex',flexDirection:'row'}}>
                        <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{router.push('/signup')}} />
@@ -34,7 +34,7 @@ export default function Login() {
                               <label style={{fontSize:'13px',position:'absolute',bottom:'-25px',right:'0',}}>forgot password ?</label>
                             </div>
                              
-                             <div style={{height:'100px',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',position:'relative',bottm:'20px'}}>
+                             <div style={{height:'100px',width:'100%',display:'flex',  justifyContent:'center',alignItems:'center',position:'relative',bottm:'20px'}}>
                                 <Button title={"login"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{router.push('/login')}} />
                              </div>
                          </div>   
