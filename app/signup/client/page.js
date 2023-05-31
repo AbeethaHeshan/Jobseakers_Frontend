@@ -1,5 +1,5 @@
 "use client"
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import { Carousel } from 'react-responsive-carousel';
@@ -14,6 +14,46 @@ const sliderMinindex = 0;
 export default function SignUp() {
     const router = useRouter();
     const [slideIndex, setSlideIndex] = useState(0);
+    const [buinessRegPdf, setBuinessRegPdf] = useState('');
+    const [buinessRegPdfUrl, setBuinessRegPdfUrl] = useState('');
+    const [profileUri, setProfileUri] = useState('');
+    const [profileUrl, setProfileUrl] = useState('');
+    const fileInputRef = useRef(null);
+    const fileInputRef2 = useRef(null);
+
+
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+          try{
+            setBuinessRegPdf(file);
+            const fileUrl = URL.createObjectURL(file);
+            setBuinessRegPdfUrl(fileUrl);
+            console.log(file);
+          }catch(err){
+              console.log(err)
+          }
+
+      };
+      const handleFileChangeProfile = (event) => {
+        const file = event.target.files[0];
+        try {
+          setProfileUri(file);
+          const fileUrl = URL.createObjectURL(file);
+          setProfileUrl(fileUrl);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+    const handleClick = () => {
+         fileInputRef.current.click();
+    };
+
+    const handleClickProfile = () => {
+        fileInputRef2.current.click();
+   };
+
 
     const handleNextSlide = () => {
          if(slideIndex >= sliderMaxindex){
@@ -24,13 +64,13 @@ export default function SignUp() {
 
       };
 
-      const handlePrevioustSlide = () => {
+       const handlePrevioustSlide = () => {
 
-        if(slideIndex <= sliderMinindex){
-            setSlideIndex(sliderMinindex);
-       }else{
-            setSlideIndex(prevIndex => prevIndex - 1);
-       }
+            if(slideIndex <= sliderMinindex){
+                setSlideIndex(sliderMinindex);
+            }else{
+                setSlideIndex(prevIndex => prevIndex - 1);
+            }
        
       };
    
@@ -75,17 +115,74 @@ export default function SignUp() {
                                         <TextField width={"200px"} height={"40px"} placeholder={"FirstName"} borderRadius={"10px"} borderColor={"red"}/>
                                         <TextField width={"200px"} height={"40px"} placeholder={"LastName"}  borderRadius={"10px"} />
                                     </div>
-                                    <TextField width={"300px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"} />
-                                    <AuthField width={"300px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} type={"text"}/>
-                                    <AuthField width={"300px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} type={"password"}/>
-                                    <AuthField width={"300px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"}/>
+                                    <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"} />
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} type={"text"}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} type={"password"}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"}/>
                             </div>   
                         </div>
-                        <div>
-                        
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
+                            <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
+                                    <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
+                                        <TextField width={"200px"} height={"40px"} placeholder={"BusinessName"} borderRadius={"10px"} borderColor={"red"}/>
+                                        <TextField width={"200px"} height={"40px"} placeholder={"BusinessType"}  borderRadius={"10px"} />
+                                    </div>
+
+                                    <TextField width={"420px"} height={"40px"} placeholder={"Business Registration Number"}  borderRadius={"10px"} /> 
+                                    <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"} />
+                                            <TextField width={"200px"} height={"40px"} placeholder={"City"}  borderRadius={"10px"} />
+                                    </div>
+                                    <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"State"}  borderRadius={"10px"} />
+                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"}  borderRadius={"10px"} />
+                                    </div>
+                                     
+                                    <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+                                   
+                                         
+                                             <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
+                                                  <Button title={"Upload Business Registration PDF"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClick()}} />
+                                                   <Image  width={10} height={10} src={buinessRegPdf != '' ? "/images/signup/client/correct.gif" : "/images/signup/client/1.png"} style={{width:'20px',position:'absolute',right:'50px',margin:'auto'}} className='border'/>
+                                             </div>
+    
+                                            <input
+                                                id="fileInput"
+                                                ref={fileInputRef}
+                                                type="file"
+                                                onChange={handleFileChange}
+                                                accept="application/pdf"
+                                                style={{ display: 'none' }}
+                                            />
+                                           
+                                    </div>
+                                   
+                                    
+                            </div>   
                         </div>
-                        <div>
-                        
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
+                            <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
+                                   
+                                    <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+                                              
+                                             <Image url={""} style={{borderRadius:'100%'}} width={20} height={20}   />
+                                             <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
+                                                   <Button title={"upload profile Image"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClickProfile()}} />
+                                             </div>
+    
+                                            <input
+                                                id="fileInputProfile"
+                                                ref={fileInputRef2}
+                                                type="file"
+                                                onChange={handleFileChangeProfile}
+                                                accept="image/png, image/jpeg"
+                                                style={{ display: 'none' }}
+                                            />
+                                           
+                                    </div>
+                                   
+                                    
+                            </div>   
                         </div>
                     </Carousel>
                 </div>

@@ -56,3 +56,12 @@ input[type="radio"]:checked {
   background-color: #6149D8;
 }
 
+.customUploader {
+  background-color: #b0a5ec;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: fit-content;
+  height: 30px;
+  border-radius: 10px;
+}
