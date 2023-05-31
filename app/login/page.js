@@ -4,8 +4,9 @@ import Image from 'next/image'
 import Button from '@/components/button'
 import TextField from '@/components/textField';
 import AuthField from '@/components/authField';
-
+import { useRouter } from 'next/navigation';
 export default function Login() {
+  const router = useRouter();
   return (
     <div>
        <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
@@ -14,7 +15,7 @@ export default function Login() {
                          <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}}/>
                   </div>
                   <div style={{display:'flex',flexDirection:'row'}}>
-                       <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{router.push('/login')}} />
+                       <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{router.push('/signup')}} />
                   </div>
              </div>
         </div>

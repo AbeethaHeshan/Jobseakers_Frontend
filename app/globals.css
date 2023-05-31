@@ -35,3 +35,17 @@ input:focus, button:focus, textarea:focus, textarea:focus, input:active, button:
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+input[type="radio"] {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #6149D8;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input[type="radio"]:checked {
+  border-color: #6149D8;
+  background-color: #6149D8;
+}

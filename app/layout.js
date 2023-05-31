@@ -1,6 +1,6 @@
 
 import '../public/styles/fonts.css'
-import '../public/styles/globals.css'
+import '../app/globals.css'
 import '../public/styles/border.css'
 
 

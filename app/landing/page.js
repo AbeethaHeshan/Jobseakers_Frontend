@@ -37,7 +37,7 @@ export default function Landing() {
                   </div>
                   <div style={{display:'flex',flexDirection:'row'}}>
                          <Button title={"Login"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#CCC4F0"} onClick={()=>{router.push('/login')}} />
-                         <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"}  />
+                         <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{router.push('/signup')}} />
                   </div>
              </div>
         </div>
