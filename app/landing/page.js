@@ -3,7 +3,7 @@ import Button from '@/components/button';
 import Dropdown from '@/components/dropdown'
 import TextField from '@/components/textField';
 import Image from 'next/image'
-
+import { useRouter } from 'next/navigation';
 
 const nav = [
      ["red","Find Jobs"] ,
@@ -11,6 +11,7 @@ const nav = [
 ]
 
 export default function Landing() {
+  const router = useRouter();
 
   return (
     <div style={{display:'flex',flexDirection:'column'}}>
@@ -35,8 +36,8 @@ export default function Landing() {
   
                   </div>
                   <div style={{display:'flex',flexDirection:'row'}}>
-                         <Button title={"Login"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#CCC4F0"}  />
-                         <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"} />
+                         <Button title={"Login"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#CCC4F0"} onClick={()=>{router.push('/login')}} />
+                         <Button title={"SignUp"} width={"105px"} height={"28px"} color={"white"} backgroundColor={"#6149D8"}  />
                   </div>
              </div>
         </div>

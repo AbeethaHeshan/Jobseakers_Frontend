@@ -1,8 +1,10 @@
 import React from 'react'
 
-export default function Button({title,width,height,backgroundColor,color,fontSize}) {
+export default function Button({title,width,height,backgroundColor,color,fontSize,onClick}) {
   return (
-    <div style={{width:width,
+    <div
+     onClick={onClick}
+     style={{width:width,
                  height:height,
                  display:'flex',
                  justifyContent:'center',
