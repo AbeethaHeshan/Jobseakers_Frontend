@@ -26,7 +26,6 @@ export default function Index() {
         }
       };
 
-
   return (
     <div>
        <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
@@ -37,7 +36,7 @@ export default function Index() {
              </div>
         </div>
 
-        <div className='border' style={{height:'92vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <div  style={{height:'92vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
               <div className='box-shadow-type-one' style={{height:'400px',width:'700px',borderRadius:'15px',display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <span>
                        Join as a client or freelancer
