@@ -15,6 +15,8 @@ import { httpPOST } from '@/service/network-configs/http/service';
 import Toaster from '@/components/Toaster';
 import { Oval } from 'react-loader-spinner';
 import Loarder from '@/components/Loarder';
+import { EMAIL, PASSWORD, TEXT, TEXT_NUMBER, USER_NAME } from '@/util/regXConstents';
+import { get_array_lendth_and_value_ok } from '@/util/arrayCheck';
 
 
 const sliderMaxindex = 2;
@@ -23,28 +25,48 @@ const sliderMinindex = 0;
 export default function SignUp() {
     const router = useRouter();
     const [slideIndex, setSlideIndex] = useState(0);
-    const [buinessRegPdf, setBuinessRegPdf] = useState('');
+    const [buinessRegPdf, setBuinessRegPdf] = useState({value:'',bool:true});
     const [profileUrl, setProfileUrl] = useState('');
     const fileInputRef = useRef(null);
     const fileInputRef2 = useRef(null);
-
    
-    const [firstname, setSetFirstName] = useState('');
-    const [lastname, setLastName] = useState('');
-    const [buisnessType, setBuisnessType] = useState('');
-    const [email, setEmail] = useState('');
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const [businessName, setBusinessName] = useState('');
-    const [registrationName, setRegistrationName] = useState('');
-    const [street, setStreet] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [zip, setZip] = useState('');
-    const [buinessRegPdfUri, setBuinessRegPdfUri] = useState('');
-    const [profileUri, setProfileUri] = useState('');
+   
+    const [firstname, setSetFirstName] = useState({value:'',bool:false});
+    const [lastname, setLastName] = useState({value:'',bool:false});
+    const [buisnessType, setBuisnessType] = useState({value:'',bool:false});
+    const [email, setEmail] = useState({value:'',bool:false});
+    const [userName, setUserName] = useState({value:'',bool:false});
+    const [password, setPassword] = useState({value:'',bool:false});
+    const [businessName, setBusinessName] = useState({value:'',bool:false});
+    const [registrationName, setRegistrationName] = useState({value:'',bool:false});
+    const [street, setStreet] = useState({value:'',bool:false});
+    const [city, setCity] = useState({value:'',bool:false});
+    const [state, setState] = useState({value:'',bool:false});
+    const [zip, setZip] = useState({value:'',bool:false});
+    const [buinessRegPdfUri, setBuinessRegPdfUri] = useState({value:'',bool:true});
+    const [profileUri, setProfileUri] = useState({value:'',bool:true});
     const [isLoding, setLoading] = useState(false);
-    
+
+
+
+    const booleanValues = [
+      buisnessType.bool,
+      firstname.bool,
+      lastname.bool,
+      email.bool,
+      userName.bool,
+      password.bool,
+      businessName.bool,
+      registrationName.bool,
+      street.bool,
+      city.bool,
+      state.bool,
+      zip.bool,
+      buinessRegPdfUri.bool,
+      profileUri.bool,
+      buinessRegPdf.bool,
+    ];
+
 
     const handleFileChange = (event) => {
        
@@ -54,28 +76,25 @@ export default function SignUp() {
             const fileUri = URL.createObjectURL(file);
             URL.revokeObjectURL(fileUri);
 
-            setBuinessRegPdfUri(fileUri);
+            setBuinessRegPdfUri({value:fileUri,bool:false});
             console.log('File URI:', fileUri);
             const fileUrl = URL.createObjectURL(file);
-            setBuinessRegPdf(fileUrl);
-            console.log("URL : ",fileUrl);
+            setBuinessRegPdf({value:fileUrl,bool:false});
           }catch(err){
               console.log(err)
           }
 
       };
       const handleFileChangeProfile = (event) => {
-        console.log("EEEEEEEEEEEEEEEEEEEE");
-      
         try {
 
           const file = event.target.files[0];
           const fileUri = URL.createObjectURL(file);
           console.log('File URI:', fileUri);
 
-          setProfileUri(fileUri);
+          setProfileUri({value:fileUri,bool:false});
           const fileUrl = URL.createObjectURL(file);
-          setProfileUrl(fileUrl);
+          setProfileUrl({value:fileUrl,bool:false});
           console.log("URL: ", fileUrl);
         } catch (err) {
           console.log(err);
@@ -109,28 +128,31 @@ export default function SignUp() {
        
       };
 
-
+      
+     function setEmptyAllField(){
+          
+     }
 
      async function  saveDetails(){
 
         setLoading(prev => !prev);
         const clientDetails = JSON.stringify({
-            "owner": firstname + " " + lastname,
+            "owner": firstname.value + " " + lastname.value,
             "address": {
-              "street": street,
-              "city": city,
-              "state": state,
-              "zipCode": zip
+              "street": street.value,
+              "city": city.value,
+              "state": state.value,
+              "zipCode": zip.value
             },
-            "businessName": businessName,
-            "businessType": buisnessType,
-            "businessRegistrationDocUri": buinessRegPdfUri,
-            "businessRegistrationNo": registrationName,
-            "email": email,
+            "businessName": businessName.value,
+            "businessType": buisnessType.value,
+            "businessRegistrationDocUri": buinessRegPdfUri.value,
+            "businessRegistrationNo": registrationName.value,
+            "email": email.value,
             "tel": "null",
-            "profileImageUri": profileUri,
-            "userName": userName,
-            "password": password
+            "profileImageUri": profileUri.value,
+            "userName": userName.value,
+            "password": password.value
           });
           
           const url = BASE_URL + NEW_CLIENT;
@@ -159,19 +181,19 @@ export default function SignUp() {
     
       const changeSlider = () =>{
            if(slideIndex === 0){
-                 return  <Button title={"Create A New Account"} width={"50%"} height={"35px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>handleNextSlide()} />
+                 return  <Button title={"Create A New Account"} width={"50%"} height={"35px"} color={"white"}   backgroundColor={"#6149D8"}  onClick={()=>handleNextSlide()} />
            }else if (slideIndex >= sliderMaxindex){
                 return(
                     <div style={{width:'80%',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
                         <Button title={"Previous"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>handlePrevioustSlide()} />
-                        <Button title={"Register"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} onClick={(e)=>{handleNextSlide();  saveDetails() }} />
+                        <Button title={"Register"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} disable = {get_array_lendth_and_value_ok(booleanValues)} onClick={(e)=>{handleNextSlide();  saveDetails() }} />
                    </div>
                 )
            }else{
               return(
                 <div style={{width:'80%',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-                    <Button title={"Previous"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>handlePrevioustSlide()} />
-                    <Button title={"Next"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>handleNextSlide()} />
+                    <Button title={"Previous"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"}  onClick={()=>handlePrevioustSlide()} />
+                    <Button title={"Next"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"}   onClick={()=>handleNextSlide()} />
                </div>
               )
            }
@@ -189,44 +211,44 @@ export default function SignUp() {
         <div  style={{height:'92vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
             <div className='  box-shadow-type-one' style={{height:'500px',width:'700px',borderRadius:'15px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-around'}}>
                      <span style={{fontSize:'30px',fontFamily:'initial',fontWeight:'700',color:'#464755'}} >Sign up as a client</span>
-                <div style={{width:'80%',height:'260px'}}>        
+                <div style={{width:'80%',height:'350px'}}>        
                     <Carousel width={"620px"}   selectedItem={slideIndex} autoPlay={false} showStatus={false} showIndicators={false} >
-                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"280px",padding:'20px'}}>
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"350px",padding:'20px'}}>
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
-                                        <TextField width={"200px"} height={"40px"} placeholder={"FirstName"} borderRadius={"10px"} borderColor={"red"} onChange={(e)=>{setSetFirstName(e.target.value) ; console.log(e)}}/>
-                                        <TextField width={"200px"} height={"40px"} placeholder={"LastName"}  borderRadius={"10px"} onChange={(e)=>{setLastName(e.target.value)}}/>
+                                        <TextField width={"200px"} height={"40px"} placeholder={"FirstName"} borderRadius={"10px"} borderColor={"red"} warnText={TEXT} value={firstname.value}  RegXtype={"text"}   onChange={(e)=>{setSetFirstName({value:e.value,bool:e.bool});}}/>
+                                        <TextField width={"200px"} height={"40px"} placeholder={"LastName"}  borderRadius={"10px"} warnText={TEXT} value={lastname.value} RegXtype={"text"}    onChange={(e)=>{setLastName({value:e.value,bool:e.bool}); }}/>
                                     </div>
-                                    <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"} onChange={(e)=>{setEmail(e.target.value)}}/>
-                                    <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} type={"text"} onChange={(e)=>{setUserName(e.target.value)}}/>
-                                    <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} type={"password"} onChange={(e)=>{setPassword(e.target.value)}}/>
-                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"} onChange={(e)=>{}}/>
+                                    <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"}   warnText={EMAIL} value={email.value} RegXtype={"email"}   onChange={(e)=>{setEmail({value:e.value,bool:e.bool}); }}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} warnText={USER_NAME} value={userName.value} RegXtype={"userName"}  type={"text"} onChange={(e)=>{setUserName({value:e.value,bool:e.bool}); console.log(userName)}}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} warnText={PASSWORD} value={password.value} RegXtype={"password"}  type={"password"} onChange={(e)=>{setPassword({value:e.value,bool:e.bool})}}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} warnText={PASSWORD} value={password.value} RegXtype={"password"}   type={"password"} onChange={(e)=>{}}/>
                             </div>   
-                        </div>
-                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
+                        </div>  
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"350px",padding:'20px'}}>
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
-                                        <TextField width={"200px"} height={"40px"} placeholder={"BusinessName"} borderRadius={"10px"} borderColor={"red"} onChange={(e)=>{setBusinessName(e.target.value)}}/>
+                                        <TextField width={"200px"} height={"40px"} placeholder={"BusinessName"} borderRadius={"10px"} borderColor={"red"}  warnText={TEXT} value={businessName.value} RegXtype={"text"} onChange={(e)=>{setBusinessName({value:e.value,bool:e.bool}); }}/>
                                         {/* <TextField width={"200px"} height={"40px"} placeholder={"BusinessType"}  borderRadius={"10px"} /> */}
-                                        <BtnDropDown onChange={(e)=>{setBuisnessType(e)}}/>
+                                        <BtnDropDown onChange={(e)=>{setBuisnessType({value:e,bool:false})}}/>
                                     </div>
 
-                                            <TextField width={"420px"} height={"40px"} placeholder={"Business Registration Number"}  borderRadius={"10px"}  onChange={(e)=>{setRegistrationName(e.target.value)}}/> 
+                                            <TextField width={"420px"} height={"40px"} placeholder={"Business Registration Number"}  borderRadius={"10px"}  warnText={TEXT} value={registrationName.value} RegXtype={"text"}  onChange={(e)=>{setRegistrationName({value:e.value,bool:e.bool}); }}/> 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"} onChange={(e)=>{setStreet(e.target.value)}}/>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"City"}  borderRadius={"10px"} onChange={(e)=>{setCity(e.target.value)}}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"}  warnText={TEXT_NUMBER} value={street.value} RegXtype={"text"} onChange={(e)=>{setStreet({value:e.value,bool:e.bool});}}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"City"}  borderRadius={"10px"}  warnText={TEXT} value={city.value} RegXtype={"text"}  onChange={(e)=>{setCity({value:e.value,bool:e.bool}); }}/>
                                     </div>
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
-                                            <TextField width={"200px"} height={"40px"} placeholder={"State"}  borderRadius={"10px"} onChange={(e)=>{setState(e.target.value)}}/>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"}  borderRadius={"10px"} onChange={(e)=>{setZip(e.target.value)}} />
+                                            <TextField width={"200px"} height={"40px"} placeholder={"State"}  borderRadius={"10px"}  warnText={TEXT} value={state.value} RegXtype={"text"} onChange={(e)=>{setState({value:e.value,bool:e.bool}); }}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"}  borderRadius={"10px"}  warnText={TEXT_NUMBER} value={zip.value} RegXtype={"textAndNum"} onChange={(e)=>{setZip({value:e.value,bool:e.bool});}} />
                                     </div>
                                      
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
                                      
                                              <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
                                                   <Button title={"Upload Business Registration PDF"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClick()}} />
-                                                  <Image  width={10} height={10} src={buinessRegPdf != '' ? "/images/signup/client/correct.gif" : "/images/signup/client/1.png"} style={{width:'20px',position:'absolute',right:'50px',margin:'auto'}} className='border'/>
+                                                  <Image  width={10} height={10} src={buinessRegPdf.value != '' ? "/images/signup/client/correct.gif" : "/images/signup/client/1.png"} style={{width:'20px',position:'absolute',right:'50px',margin:'auto'}} className='border'/>
                                              </div>
                                      
                                              <input
@@ -242,12 +264,12 @@ export default function SignUp() {
                                   
                             </div>   
                         </div>
-                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"350px",padding:'20px'}}>
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                    
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'400px',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
                                             
-                                             <div style={{width:'50px',height:'50px',borderRadius:'100%',borderWidth:'2px',backgroundImage:`url(${profileUri})`, backgroundSize: 'cover',
+                                             <div style={{width:'50px',height:'50px',borderRadius:'100%',borderWidth:'2px',backgroundImage:`url(${profileUri.value})`, backgroundSize: 'cover',
                                                           backgroundPosition: 'center',}}/>
                                              <div style={{width:'50%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
                                                    <Button title={"Upload Profile Image"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>handleClickProfile()} />
@@ -263,8 +285,6 @@ export default function SignUp() {
                                              />
                                            
                                     </div>
-                                   
-                                    
                             </div>   
                         </div>
                     </Carousel>
