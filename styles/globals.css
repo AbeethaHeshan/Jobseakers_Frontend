@@ -65,3 +65,13 @@ input[type="radio"]:checked {
   height: 30px;
   border-radius: 10px;
 }
+
+
+/* buttonhovers */
+.btn-hover{
+    background-color: #6149D8;
+}
+
+.btn-hover :hover{
+     background-color: #4b37b3;   
+}

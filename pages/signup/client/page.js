@@ -47,10 +47,13 @@ export default function SignUp() {
     
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const fileUri = URL.createObjectURL(file);
-        URL.revokeObjectURL(fileUri);
+       
           try{
+
+            const file = event.target.files[0];
+            const fileUri = URL.createObjectURL(file);
+            URL.revokeObjectURL(fileUri);
+
             setBuinessRegPdfUri(fileUri);
             console.log('File URI:', fileUri);
             const fileUrl = URL.createObjectURL(file);
@@ -62,18 +65,18 @@ export default function SignUp() {
 
       };
       const handleFileChangeProfile = (event) => {
-        const file = event.target.files[0];
-        const fileUri = URL.createObjectURL(file);
-        console.log('File URI:', fileUri);
-        // Perform further processing with the file URI
-    
-        // Remember to release the object URL when you're done with it
-        URL.revokeObjectURL(fileUri);
+        console.log("EEEEEEEEEEEEEEEEEEEE");
+      
         try {
+
+          const file = event.target.files[0];
+          const fileUri = URL.createObjectURL(file);
+          console.log('File URI:', fileUri);
+
           setProfileUri(fileUri);
           const fileUrl = URL.createObjectURL(file);
           setProfileUrl(fileUrl);
-          console.log("URL : ",fileUrl);
+          console.log("URL: ", fileUrl);
         } catch (err) {
           console.log(err);
         }
@@ -86,8 +89,7 @@ export default function SignUp() {
     const handleClickProfile = () => {
         fileInputRef2.current.click();
    };
-
-         
+     
     const handleNextSlide = () => {
          if(slideIndex >= sliderMaxindex){
               setSlideIndex(sliderMaxindex);
@@ -198,7 +200,7 @@ export default function SignUp() {
                                     <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"} onChange={(e)=>{setEmail(e.target.value)}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} type={"text"} onChange={(e)=>{setUserName(e.target.value)}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} type={"password"} onChange={(e)=>{setPassword(e.target.value)}}/>
-                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"} onChange={(e)=>{}}/>
                             </div>   
                         </div>
                         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
@@ -209,32 +211,32 @@ export default function SignUp() {
                                         <BtnDropDown onChange={(e)=>{setBuisnessType(e)}}/>
                                     </div>
 
-                                          <TextField width={"420px"} height={"40px"} placeholder={"Business Registration Number"}  borderRadius={"10px"}  onChange={(e)=>{setRegistrationName(e.target.value)}}/> 
+                                            <TextField width={"420px"} height={"40px"} placeholder={"Business Registration Number"}  borderRadius={"10px"}  onChange={(e)=>{setRegistrationName(e.target.value)}}/> 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
                                             <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"} onChange={(e)=>{setStreet(e.target.value)}}/>
                                             <TextField width={"200px"} height={"40px"} placeholder={"City"}  borderRadius={"10px"} onChange={(e)=>{setCity(e.target.value)}}/>
                                     </div>
+
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
                                             <TextField width={"200px"} height={"40px"} placeholder={"State"}  borderRadius={"10px"} onChange={(e)=>{setState(e.target.value)}}/>
                                             <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"}  borderRadius={"10px"} onChange={(e)=>{setZip(e.target.value)}} />
                                     </div>
                                      
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                                   
-                                         
+                                     
                                              <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
                                                   <Button title={"Upload Business Registration PDF"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClick()}} />
                                                   <Image  width={10} height={10} src={buinessRegPdf != '' ? "/images/signup/client/correct.gif" : "/images/signup/client/1.png"} style={{width:'20px',position:'absolute',right:'50px',margin:'auto'}} className='border'/>
                                              </div>
-    
-                                            <input
+                                     
+                                             <input
                                                 id="fileInput"
                                                 ref={fileInputRef}
                                                 type="file"
                                                 onChange={handleFileChange}
                                                 accept="application/pdf"
                                                 style={{ display: 'none' }}
-                                            />
+                                              />
                                            
                                     </div>
                                    
@@ -245,10 +247,11 @@ export default function SignUp() {
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                    
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'400px',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                                              
-                                             <Image url={"/images/landing/3.png"} style={{borderRadius:'100%',width:'50px'}} width={5} height={5}   />
+                                            
+                                             <div style={{width:'50px',height:'50px',borderRadius:'100%',borderWidth:'2px',backgroundImage:`url(${profileUri})`, backgroundSize: 'cover',
+                                                          backgroundPosition: 'center',}}/>
                                              <div style={{width:'50%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
-                                                   <Button title={"Upload Profile Image"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClickProfile()}} />
+                                                   <Button title={"Upload Profile Image"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>handleClickProfile()} />
                                              </div>
     
                                              <input

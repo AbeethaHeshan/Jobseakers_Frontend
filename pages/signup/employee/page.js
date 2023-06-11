@@ -16,6 +16,7 @@ import Toaster from '@/components/Toaster';
 import { Oval } from  'react-loader-spinner'
 import { NEW_EMPLOYEE } from '@/service/api-endpoints/employee';
 import Loarder from '@/components/Loarder';
+import JobTypeDropDrown from '@/components/jobTypeDropDrown';
 
 
 const sliderMaxindex = 2;
@@ -29,7 +30,7 @@ export default function SignUp() {
     const fileInputRef = useRef(null);
     const fileInputRef2 = useRef(null);
 
-    const [name, setSetName] = useState('');
+    const [name, setName] = useState('');
     const [jobType, setJobType] = useState('');
     const [email, setEmail] = useState('');
     const [userName, setUserName] = useState('');
@@ -42,38 +43,23 @@ export default function SignUp() {
     const [isLoding, setLoading] = useState(false);
     
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const fileUri = URL.createObjectURL(file);
-        URL.revokeObjectURL(fileUri);
-          try{
-            setBuinessRegPdfUri(fileUri);
-            console.log('File URI:', fileUri);
-            const fileUrl = URL.createObjectURL(file);
-            setBuinessRegPdf(fileUrl);
-            console.log("URL : ",fileUrl);
-          }catch(err){
-              console.log(err)
-          }
+ 
+    const handleFileChangeProfile = (event) => {
+  
+      try {
 
-      };
-      const handleFileChangeProfile = (event) => {
         const file = event.target.files[0];
         const fileUri = URL.createObjectURL(file);
         console.log('File URI:', fileUri);
-        // Perform further processing with the file URI
-    
-        // Remember to release the object URL when you're done with it
-        URL.revokeObjectURL(fileUri);
-        try {
-          setProfileUri(fileUri);
-          const fileUrl = URL.createObjectURL(file);
-          setProfileUrl(fileUrl);
-          console.log("URL : ",fileUrl);
-        } catch (err) {
-          console.log(err);
-        }
-      };
+
+        setProfileUri(fileUri);
+        const fileUrl = URL.createObjectURL(file);
+        setProfileUrl(fileUrl);
+        console.log("URL: ", fileUrl);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     const handleClick = () => {
          fileInputRef.current.click();
@@ -126,7 +112,7 @@ export default function SignUp() {
           const url = BASE_URL + NEW_EMPLOYEE;
           
           const headers = {
-            'Role': 'CLIENT',
+            'Role': 'EMPLOYEE',
             'Content-Type': 'application/json', 
             'crossorigin': true,    
             'mode': 'no-cors',       
@@ -136,7 +122,7 @@ export default function SignUp() {
         
           if(response?.data?.code === 200){
                   setLoading(false)
-                  notify(notifyStatus.SUCCESS,"New  Client Save ")
+                  notify(notifyStatus.SUCCESS,"New  Employee Save ")
           }else if(response?.data?.code === 400){
                   setLoading(false)
                   notify(notifyStatus.ERROR,"Failed save employee please try again")
@@ -178,11 +164,11 @@ export default function SignUp() {
                         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"280px",padding:'20px'}}>
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                    
-                                    <TextField width={"420px"} height={"40px"} placeholder={"FirstName"} borderRadius={"10px"} borderColor={"red"} onChange={(e)=>{setName(e.target.value) ; console.log(e)}}/>
+                                    <TextField width={"420px"} height={"40px"} placeholder={"Name"} borderRadius={"10px"} borderColor={"red"}  onChange={(e)=>{setName(e.target.value)}}/>
                                     <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"} onChange={(e)=>{setEmail(e.target.value)}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} type={"text"} onChange={(e)=>{setUserName(e.target.value)}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} type={"password"} onChange={(e)=>{setPassword(e.target.value)}}/>
-                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} type={"password"} onChange={(e)=>{}}/>
                             </div>   
                         </div>
                         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
@@ -206,23 +192,29 @@ export default function SignUp() {
                                     </div>
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
                                             <TextField width={"200px"} height={"40px"} placeholder={"Tel"}  borderRadius={"10px"} onChange={(e)=>{setState(e.target.value)}}/>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"working type"}  borderRadius={"10px"} onChange={(e)=>{setZip(e.target.value)}} />
+                                            <JobTypeDropDrown onChange={(e)=>{}} width={"200px"}/>
                                     </div>
                                      
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
                                             
                                             
-                                             <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
-                                                  <Button title={"Upload Business Registration PDF"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClick()}} />
-                                                  <Image  width={10} height={10} src={buinessRegPdf != '' ? "/images/signup/client/correct.gif" : "/images/signup/client/1.png"} style={{width:'20px',position:'absolute',right:'50px',margin:'auto'}} className='border'/>
+                                             <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative',columnGap:'5px'}}>
+                                                  <div style={{width:'50px',
+                                                               height:'50px',
+                                                               borderRadius:'100%',
+                                                               borderWidth:'2px',
+                                                               backgroundImage:`url(${profileUrl})`,
+                                                               backgroundSize: 'cover',
+                                                               backgroundPosition: 'center'}}/>
+                                                  <Button title={"Upload Profile Image"} width={"50%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClickProfile()}} type={'submit'} />
                                              </div>
     
                                             <input
                                                 id="fileInput"
-                                                ref={fileInputRef}
+                                                ref={fileInputRef2}
                                                 type="file"
-                                                onChange={handleFileChange}
-                                                accept="application/pdf"
+                                                onChange={handleFileChangeProfile}
+                                                accept="image/jpeg, image/png"
                                                 style={{ display: 'none' }}
                                             />
                                            

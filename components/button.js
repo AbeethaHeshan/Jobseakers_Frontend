@@ -1,20 +1,24 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 export default function Button({title,width,height,backgroundColor,color,fontSize,onClick}) {
+   const [isHover, setHover] = useState(false)
+
   return (
-    <div
+    <button
      onClick={onClick}
+     onMouseOver={()=>{setHover(true)}}
+     onMouseLeave={()=>{setHover(false)}}
      style={{width:width,
                  height:height,
                  display:'flex',
                  justifyContent:'center',
                  alignItems:'center',
                  borderRadius:'20px',
-                 backgroundColor:backgroundColor,
+                 backgroundColor:isHover ? "#5037D0" : backgroundColor,
                  margin:'5px',
                  cursor:'pointer'}} >
          <label style={{color:color,fontSize: fontSize != null ? fontSize :'13px',cursor:'inherit'}}>{title}</label>
-    </div>
+    </button>
   )
 }
 

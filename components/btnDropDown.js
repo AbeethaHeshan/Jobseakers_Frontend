@@ -36,7 +36,7 @@ export default function BtnDropDown(props) {
    },[]);
   return (
     <select className='box-shadow-type-one' style={{borderRadius:'10px',width: props.width != null ? props.width : '100%',paddingLeft:'10px',height:"40px"}} onChange={(e)=>{props.onChange(e.target.value)}} >
-             <option style={{fontSize:'12px' , width:'100%' , paddingLeft:'20px'}} >select type</option>
+             <option style={{fontSize:'12px' , width:'100%' , paddingLeft:'20px'}} disabled selected >select type</option>
          { 
             data.map((item, index) => (
               <option style={{fontSize:'12px' , width:'100%' , paddingLeft:'20px'}} value={item}  key={index}>{item}</option>
