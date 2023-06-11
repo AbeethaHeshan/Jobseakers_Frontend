@@ -46,7 +46,8 @@ export default function SignUp() {
     const [buinessRegPdfUri, setBuinessRegPdfUri] = useState({value:'',bool:true});
     const [profileUri, setProfileUri] = useState({value:'',bool:true});
     const [isLoding, setLoading] = useState(false);
-
+    const [isEmapty, setEmpty] = useState(false);
+    
 
 
     const booleanValues = [
@@ -130,7 +131,22 @@ export default function SignUp() {
 
       
      function setEmptyAllField(){
-          
+        setSetFirstName({...firstname, value: '', bool: false});
+        setLastName({...lastname,value: '', bool: false });
+        setBuisnessType({...buisnessType,value:'',bool: false});
+        setEmail({...email, value: '', bool: false });
+        setUserName({...userName,value: '', bool: false });
+        setPassword({...password , value: '', bool: false});
+        setBusinessName({...businessName,value: '', bool: false });
+        setRegistrationName({...registrationName, value: '', bool: false });
+        setStreet({...street, value: '', bool: false });
+        setCity({...city ,value: '', bool: false });
+        setState({...state, value: '', bool: false });
+        setZip({...zip,value: '', bool: false });
+        setBuinessRegPdfUri({...buinessRegPdfUri, value: '', bool: true });
+        setProfileUri({...profileUri,value: '', bool: true });
+        setBuinessRegPdf({...buinessRegPdf,value: '', bool: true });
+     
      }
 
      async function  saveDetails(){
@@ -167,13 +183,16 @@ export default function SignUp() {
           const response = await httpPOST(url,clientDetails,'application/json',headers)    
           if(response?.data?.code === 200){
                   setLoading(false);
+                  setEmptyAllField();
                   notify(notifyStatus.SUCCESS,"New  Client Save ")
+                
           }else if(response?.data?.code >= 400){
                   setLoading(false);
                   notify(notifyStatus.SUCCESS,"Failed save client please try again")
           }else{
                   setLoading(false);
                   notify(notifyStatus.SUCCESS,"Failed save client please try again")
+                  setEmptyAllField();
           } 
              
       }
@@ -199,6 +218,11 @@ export default function SignUp() {
            }
       }
 
+      useEffect(()=>{
+         
+
+      },[])
+
   return (
     <div>
           <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
@@ -219,7 +243,7 @@ export default function SignUp() {
                                         <TextField width={"200px"} height={"40px"} placeholder={"FirstName"} borderRadius={"10px"} borderColor={"red"} warnText={TEXT} value={firstname.value}  RegXtype={"text"}   onChange={(e)=>{setSetFirstName({value:e.value,bool:e.bool});}}/>
                                         <TextField width={"200px"} height={"40px"} placeholder={"LastName"}  borderRadius={"10px"} warnText={TEXT} value={lastname.value} RegXtype={"text"}    onChange={(e)=>{setLastName({value:e.value,bool:e.bool}); }}/>
                                     </div>
-                                    <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"}   warnText={EMAIL} value={email.value} RegXtype={"email"}   onChange={(e)=>{setEmail({value:e.value,bool:e.bool}); }}/>
+                                    <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"}   warnText={EMAIL} value={email.value} RegXtype={"email"}   onChange={(e)=>{setEmail({...email,value:e.value,bool:e.bool}); }}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} warnText={USER_NAME} value={userName.value} RegXtype={"userName"}  type={"text"} onChange={(e)=>{setUserName({value:e.value,bool:e.bool}); console.log(userName)}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} warnText={PASSWORD} value={password.value} RegXtype={"password"}  type={"password"} onChange={(e)=>{setPassword({value:e.value,bool:e.bool})}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} warnText={PASSWORD} value={password.value} RegXtype={"password"}   type={"password"} onChange={(e)=>{}}/>
