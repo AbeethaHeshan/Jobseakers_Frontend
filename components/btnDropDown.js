@@ -19,12 +19,12 @@ export default function BtnDropDown(props) {
        async function  getAll(){
            const response = await httpGET(BASE_URL + GET_ALL_JOB_TYPES,'application/json')
           
-           if(response.data.code === 200 ) {
+           if(response?.data?.code === 200 ) {
                       console.log("response.data")
-                      setData(response.data.data)
-           }else if (response.data.code === 400){
+                      setData(response?.data?.data)
+           }else if (response?.data?.code === 400){
                       notify(notifyStatus.ERROR,response.message)
-           }else if (response.data.code === 403){
+           }else if (response?.data?.code === 403){
          
            }else{
                      notify(notifyStatus.ERROR,response.message)

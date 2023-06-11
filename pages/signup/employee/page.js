@@ -32,6 +32,7 @@ export default function SignUp() {
 
     const [name, setName] = useState('');
     const [jobType, setJobType] = useState('');
+    const [woekingType, setWorkingType] = useState('');
     const [email, setEmail] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -39,7 +40,8 @@ export default function SignUp() {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
-    const [profileUri, setProfileUri] = useState('');
+    const [tel, setTell] = useState('');
+    const [date, setDate] = useState('');
     const [isLoding, setLoading] = useState(false);
     
 
@@ -52,17 +54,12 @@ export default function SignUp() {
         const fileUri = URL.createObjectURL(file);
         console.log('File URI:', fileUri);
 
-        setProfileUri(fileUri);
         const fileUrl = URL.createObjectURL(file);
         setProfileUrl(fileUrl);
         console.log("URL: ", fileUrl);
       } catch (err) {
         console.log(err);
       }
-    };
-
-    const handleClick = () => {
-         fileInputRef.current.click();
     };
 
     const handleClickProfile = () => {
@@ -79,32 +76,34 @@ export default function SignUp() {
 
       };
 
-       const handlePrevioustSlide = () => {
+    const handlePrevioustSlide = () => {
 
-            if(slideIndex <= sliderMinindex){
-                setSlideIndex(sliderMinindex);
-            }else{
-                setSlideIndex(prevIndex => prevIndex - 1);
-            }
-       
-      };
+        if(slideIndex <= sliderMinindex){
+            setSlideIndex(sliderMinindex);
+        }else{
+            setSlideIndex(prevIndex => prevIndex - 1);
+        }
+    
+    };
 
      async function  saveDetails(){
-       
+        console.log(date ,"  ",jobType);
         setLoading(prev => !prev)
        
         const employeeDetails = JSON.stringify({
-            "owner": name ,
+            "name": name,
             "address": {
               "street": street,
               "city": city,
               "state": state,
               "zipCode": zip
             },
+            "dateOfBirth": date,
             "jobType": jobType,
-            "profileImageUri": profileUri,
+            "workingType": woekingType,
+            "profileImageUri": profileUrl,
             "email": email,
-            "tel": '',
+            "tel": tel,
             "userName": userName,
             "password": password
           });
@@ -152,7 +151,7 @@ export default function SignUp() {
           <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
              <div style={{width:'100%',height:'40px',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingLeft:'10px',paddingRight:'10px'}}>
                   <div style={{display:'flex',flexDirection:'row',height:'20px',alignItems:'center'}}>               
-                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}} onClick={()=>router.push('/landing')}/>
+                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}} onClick={()=>router.push('/landing/page')}/>
                   </div>
              </div>
         </div>
@@ -175,29 +174,29 @@ export default function SignUp() {
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
                                       
-                                        {/* <TextField width={"200px"} height={"40px"} placeholder={"BusinessType"}  borderRadius={"10px"} /> */}
+                                        {/* <TextField width={"200px"} height={"40px"} placeholder={"BusinessType"}  borderRadius={"10px"}  /> */}
                                         
                                         <BtnDropDown onChange={(e)=>{setJobType(e)}} width={"200px"}/>
-                                        <input type='date' style={{width:'200px',borderRadius:'10px'}} className='box-shadow-type-one' placeholder='date of birth' />
+                                        <input type='date' style={{width:'200px',borderRadius:'10px'}} className='box-shadow-type-one' placeholder='date of birth' value={date}  onChange={(e)=>{setDate(e.target.value)}} />
                                     </div>
-
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
                                             <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"} onChange={(e)=>{setStreet(e.target.value)}}/>
                                             <TextField width={"200px"} height={"40px"} placeholder={"City"}  borderRadius={"10px"} onChange={(e)=>{setCity(e.target.value)}}/>
                                     </div>
+
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
                                             <TextField width={"200px"} height={"40px"} placeholder={"State"}  borderRadius={"10px"} onChange={(e)=>{setState(e.target.value)}}/>
                                             <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"}  borderRadius={"10px"} onChange={(e)=>{setZip(e.target.value)}} />
                                     </div>
+
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
-                                            <TextField width={"200px"} height={"40px"} placeholder={"Tel"}  borderRadius={"10px"} onChange={(e)=>{setState(e.target.value)}}/>
-                                            <JobTypeDropDrown onChange={(e)=>{}} width={"200px"}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"Tel"}  borderRadius={"10px"} onChange={(e)=>{setTell(e.target.value)}}/>
+                                            <JobTypeDropDrown onChange={(value)=>{setWorkingType(value)}} width={"200px"}/>
                                     </div>
                                      
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                                            
-                                            
+
                                              <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative',columnGap:'5px'}}>
                                                   <div style={{width:'50px',
                                                                height:'50px',
@@ -206,11 +205,11 @@ export default function SignUp() {
                                                                backgroundImage:`url(${profileUrl})`,
                                                                backgroundSize: 'cover',
                                                                backgroundPosition: 'center'}}/>
-                                                  <Button title={"Upload Profile Image"} width={"50%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>{handleClickProfile()}} type={'submit'} />
-                                             </div>
+                                                  <Button title={"Upload Profile Image"} width={"50%"} height={"35px"} color={"white"} backgroundColor={"#8B7AE0"} onClick={()=>handleClickProfile()} type={'submit'} />
+                                              </div>
     
                                             <input
-                                                id="fileInput"
+                                                id="fileInputProfile"
                                                 ref={fileInputRef2}
                                                 type="file"
                                                 onChange={handleFileChangeProfile}

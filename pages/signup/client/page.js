@@ -182,7 +182,7 @@ export default function SignUp() {
           <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
              <div style={{width:'100%',height:'40px',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingLeft:'10px',paddingRight:'10px'}}>
                   <div style={{display:'flex',flexDirection:'row',height:'20px',alignItems:'center'}}>               
-                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}} onClick={()=>router.push('/landing')}/>
+                         <Image src={"/images/logo.png"}  width={108}  height={8} style={{marginRight:'20px',position:'relative',top:'-1px'}} onClick={()=>router.push('/landing/page')}/>
                   </div>
              </div>
         </div>
@@ -239,8 +239,7 @@ export default function SignUp() {
                                               />
                                            
                                     </div>
-                                   
-                                    
+                                  
                             </div>   
                         </div>
                         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
