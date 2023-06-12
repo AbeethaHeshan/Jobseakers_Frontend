@@ -1,5 +1,5 @@
 "use client";
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Image from 'next/image'
 import Button from '../../components/button'
 import TextField from '../../components/textField';
@@ -35,18 +35,19 @@ export default function Login() {
         setLoading(false);
         if(response?.data?.userRole === "EMPLOYEE"){
               
-          
+              
              const credentials = {
                 access_token : response.data.access_token,
                 refresh_token : response.data.refresh_token,
                 userRole : response.data.userRole,
                 userId : response.data.userId
              }
-             
+              
+            localStorage.setItem('user', JSON.stringify(credentials));
 
-            Cookies.set("Employee", credentials, { expires: 7 });  //  expires in 7 days
+            Cookies.set("user", credentials, { expires: 7 });  //  expires in 7 days
            
-              router.replace("/login/employee/page")
+            router.replace("/login/employee/page")
         }else if (response?.data?.userRole === "CLIENT"){
               
               const credentials = {
@@ -55,22 +56,28 @@ export default function Login() {
                 userRole : response.data.userRole,
                 userId : response.data.userId
             }
-         
-            Cookies.set("Employee", credentials, { expires: 7 });  //  expires in 7 days
+
+            localStorage.setItem('user', JSON.stringify(credentials));
+
+            Cookies.set("user", credentials, { expires: 7 });  //  expires in 7 days
 
             router.replace("/login/client/page")
         }
       }else if(response?.status >= 400){
               setLoading(false);
+              localStorage.clear();
               notify(notifyStatus.ERROR,"Failed to login; Try again ")
       }else{
               setLoading(false);
+              localStorage.clear();
               notify(notifyStatus.ERROR,"Failed to login; Try again")
             
       } 
   }
 
-
+   useEffect(()=>{
+        localStorage.clear();
+   },[])
 
   return (
     <div>

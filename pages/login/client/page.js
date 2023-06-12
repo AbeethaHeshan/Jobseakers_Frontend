@@ -1,9 +1,12 @@
 import React from 'react'
+import checkAuthentication from '../../../components/HOC/WithAuth'
 
-export default function Main() {
+ function Main() {
   return (
     <div>
         client
     </div>
   )
 }
+
+export default checkAuthentication(Main);
