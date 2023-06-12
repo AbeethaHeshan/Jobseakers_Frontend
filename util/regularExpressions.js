@@ -15,7 +15,7 @@ export const USER_NAME = (value) => {
     if(value.length == 0){
         false
     }
-    else if (value.match(/^[/^[A-Za-z]{3,7}[A-Za-z0-9!@#$%^&*()\-+=<>?]*$/) && value.length >= 6) {
+    else if (value.match(/^[A-z]+[^A-Za-z0-9]+[0-9]+$/)) {
           return true
       } else {
           return false

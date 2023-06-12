@@ -15,7 +15,7 @@ import { httpPOST } from '@/service/network-configs/http/service';
 import Toaster from '@/components/Toaster';
 import { Oval } from 'react-loader-spinner';
 import Loarder from '@/components/Loarder';
-import { EMAIL, PASSWORD, TEXT, TEXT_NUMBER, USER_NAME } from '@/util/regXConstents';
+import { CONFIRM_PASSWORD, EMAIL, PASSWORD, TEXT, TEXT_NUMBER, USER_NAME } from '@/util/regXConstents';
 import { get_array_lendth_and_value_ok } from '@/util/arrayCheck';
 
 
@@ -45,6 +45,7 @@ export default function SignUp() {
     const [zip, setZip] = useState({value:'',bool:false});
     const [buinessRegPdfUri, setBuinessRegPdfUri] = useState({value:'',bool:true});
     const [profileUri, setProfileUri] = useState({value:'',bool:true});
+    const [confirmPassword, setConfirmPassword] = useState({value:'',bool:false});
     const [isLoding, setLoading] = useState(false);
     const [isEmapty, setEmpty] = useState(false);
     
@@ -246,7 +247,7 @@ export default function SignUp() {
                                     <TextField width={"420px"} height={"40px"} placeholder={"Email"}  borderRadius={"10px"}   warnText={EMAIL} value={email.value} RegXtype={"email"}   onChange={(e)=>{setEmail({...email,value:e.value,bool:e.bool}); }}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Username"} borderRadius={"10px"} warnText={USER_NAME} value={userName.value} RegXtype={"userName"}  type={"text"} onChange={(e)=>{setUserName({value:e.value,bool:e.bool}); console.log(userName)}}/>
                                     <AuthField width={"420px"} height={"40px"} placeholder={"Password"} borderRadius={"10px"} warnText={PASSWORD} value={password.value} RegXtype={"password"}  type={"password"} onChange={(e)=>{setPassword({value:e.value,bool:e.bool})}}/>
-                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} warnText={PASSWORD} value={password.value} RegXtype={"password"}   type={"password"} onChange={(e)=>{}}/>
+                                    <AuthField width={"420px"} height={"40px"} placeholder={"Confirm Password"} borderRadius={"10px"} warnText={CONFIRM_PASSWORD} value={confirmPassword.value} primaryValue={password.value} RegXtype={"confirmPassword"}   type={"password"} onChange={(e)=>{setConfirmPassword({value:e.value,bool:e.bool})}}/>
                             </div>   
                         </div>  
                         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"350px",padding:'20px'}}>

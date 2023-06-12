@@ -17,6 +17,11 @@ export default function AuthField(props) {
           data  =  checker(PASSWORD,props.value,props.warnText)
           return data;
 
+        }else if (props.RegXtype === "confirmPassword"){
+             if(props.value === props.primaryValue){
+                 return {text:props.warnText,bool:false}    
+             }
+          return {text:props.warnText,bool:true}
         }
       }
       
@@ -40,14 +45,24 @@ export default function AuthField(props) {
        {
         props.icon != null  ? <Image src={props.icon} width={20} height={5}  style={{position:'absolute',top:'0',left:"5px",bottom:'0',margin:'auto'}}/> : ""
        }
-      <input
-        className='box-shadow-type-one'
-        type ={ props.type == "text"  ? "text" : "password"}
-        style={inputStyle}
-        placeholder={props.placeholder}
-        onChange={(e)=> props?.onChange({value:e.target.value,bool: validator()?.bool})}
-        
-     />
+       <div>
+          <input
+            className='box-shadow-type-one'
+            type ={ props.type == "text"  ? "text" : "password"}
+            style={inputStyle}
+            placeholder={props.placeholder}
+            onChange={(e)=> props?.onChange({value:e.target.value,bool: validator()?.bool})}
+          />
+
+          {
+            validator()?.bool && props?.value?.length != 0 && <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'flex-start',position:'relative',left:'10px',columnGap:'20px'}}>
+              <Image src={'/images/signup/regx/warn.png'} width={2} height={2} style={{width:'15px',height:'15px'}}  />
+              <p style={{fontSize:'14px',color:'red',position:'relative',bottom:'1px',fontWeight:'350'}}>{validator()?.text}</p>
+            </div>
+          }
+
+       </div>
+     
 
 
     </div>
