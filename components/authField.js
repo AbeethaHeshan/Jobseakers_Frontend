@@ -32,9 +32,10 @@ export default function AuthField(props) {
         padding: '5px',
         width: props.width,
         height: props.height,
-        border: validator()?.bool  && props.value.length != 0  ? '1px solid red' : props?.value?.length == 0   ? '' : '1px solid green',
+        border: validator()?.bool  && props.value.length != 0  ? '1px solid red' : props?.value?.length == 0    ? '' : props.warnText == null ?  'none' : '1px solid green',
         paddingLeft:  props.icon == null ? "18px" : '30px',
         paddingRight: props.icon == null ? "18px" :'10px',
+        margin:props.margin!=null ? props.margin : '0px'
       };
 
   
@@ -43,7 +44,7 @@ export default function AuthField(props) {
      
 
        {
-        props.icon != null  ? <Image src={props.icon} width={20} height={5}  style={{position:'absolute',top:'0',left:"5px",bottom:'0',margin:'auto'}}/> : ""
+        props.icon != null  ? <Image src={props.icon} width={20} height={5}  style={{position:'absolute',top:'0',left:"15px",bottom:'0',margin:'auto'}}/> : ""
        }
        <div>
           <input

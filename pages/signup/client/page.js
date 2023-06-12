@@ -186,6 +186,9 @@ export default function SignUp() {
                   setLoading(false);
                   setEmptyAllField();
                   notify(notifyStatus.SUCCESS,"New  Client Save ")
+                  setTimeout(function() {
+                    router.replace("/login/page")
+                }, 2500);
                 
           }else if(response?.data?.code >= 400){
                   setLoading(false);

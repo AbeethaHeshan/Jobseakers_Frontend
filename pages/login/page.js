@@ -1,12 +1,77 @@
 "use client";
-import React from 'react'
+import React,{useState} from 'react'
 import Image from 'next/image'
 import Button from '../../components/button'
 import TextField from '../../components/textField';
 import AuthField from '../../components/authField';
 import { useRouter } from 'next/navigation';
+import { httpPOST } from '@/service/network-configs/http/service';
+import { BASE_URL } from '@/service/network-configs/http/basicConfig';
+import { AUTH } from '@/service/api-endpoints/auth';
+import Loarder from '@/components/Loarder';
+import Toaster from '@/components/Toaster';
+import { headers } from 'next/dist/client/components/headers';
+import { notify, notifyStatus } from '@/util/notify';
+import Cookies from 'js-cookie';
 export default function Login() {
   const router = useRouter();
+   const [userName, setUserName] = useState({value:'',bool:false});
+   const [password, setPassword] = useState({value:'',bool:false});
+   const [isLoding, setLoading] = useState(false);
+   
+   async function login(){
+           setLoading(true)
+       const data = JSON.stringify({
+          "username" : userName.value,
+          "password" : password.value
+      })
+
+      const headers = {
+         'Content-Type': 'application/json', 
+      }
+      const response =  await httpPOST(BASE_URL+AUTH , data, 'application/json',headers);   
+
+      if(response?.status === 200){
+        setLoading(false);
+        if(response?.data?.userRole === "EMPLOYEE"){
+              
+          
+             const credentials = {
+                access_token : response.data.access_token,
+                refresh_token : response.data.refresh_token,
+                userRole : response.data.userRole,
+                userId : response.data.userId
+             }
+             
+
+            Cookies.set("Employee", credentials, { expires: 7 });  //  expires in 7 days
+           
+              router.replace("/login/employee/page")
+        }else if (response?.data?.userRole === "CLIENT"){
+              
+              const credentials = {
+                access_token : response.data.access_token,
+                refresh_token : response.data.refresh_token,
+                userRole : response.data.userRole,
+                userId : response.data.userId
+            }
+         
+            Cookies.set("Employee", credentials, { expires: 7 });  //  expires in 7 days
+
+            router.replace("/login/client/page")
+        }
+      }else if(response?.status >= 400){
+              setLoading(false);
+              notify(notifyStatus.ERROR,"Failed to login; Try again ")
+      }else{
+              setLoading(false);
+              notify(notifyStatus.ERROR,"Failed to login; Try again")
+            
+      } 
+  }
+
+
+
   return (
     <div>
        <div  style={{width:'100%',height:'50px',display:'flex',alignItems:'center',backgroundColor:'white'}}>
@@ -29,20 +94,22 @@ export default function Login() {
                                 <Image src={"/images/logo.png"}  width={135}  height={8} style={{paddingTop:'40px'}} />
                             </div>
                             <div style={{display:'flex',flexDirection:'column',height:'100px',justifyContent:'space-between',position:'relative',top:'30px'}}>
-                              <AuthField width={"300px"} height={"45px"} placeholder={"username"} borderRadius={"10px"} type={"text"} icon={"/images/login/3.png"} />
-                              <AuthField width={"300px"} height={"45px"} placeholder={"password"} borderRadius={"10px"} type={"password"}  icon={"/images/login/2.png"}/>
-                              <label style={{fontSize:'13px',position:'absolute',bottom:'-25px',right:'0',}}>forgot password ?</label>
+                              <AuthField width={"300px"} height={"45px"} placeholder={"username"} borderRadius={"10px"} type={"text"} icon={"/images/login/3.png"} margin={"10px"}   onChange={(e)=>{setUserName({...userName,value:e.value,bool:e.bool})}} />
+                              <AuthField width={"300px"} height={"45px"} placeholder={"password"} borderRadius={"10px"} type={"password"}  icon={"/images/login/2.png"}  margin={"10px"} onChange={(e)=>{setPassword({...password,value:e.value,bool:e.bool})}}/>
+                              <label style={{fontSize:'13px',position:'absolute',bottom:'-42px',right:'12px',}}> forgot password ? </label>
                             </div>
                              
                              <div style={{height:'100px',width:'100%',display:'flex',  justifyContent:'center',alignItems:'center',position:'relative',bottm:'20px'}}>
-                                <Button title={"login"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{router.push('/login/page')}} />
+                                <Button title={"login"} width={"80%"} height={"35px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>{login()}} />
                              </div>
-                         </div>   
+                         </div>    
                   </div>
             </div>
             
 
         </div>
+        <Loarder visible={isLoding}/>
+        <Toaster/>
     </div>
   )
 }

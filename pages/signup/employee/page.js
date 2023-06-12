@@ -124,6 +124,9 @@ export default function SignUp() {
           if(response?.data?.code === 200){
                   setLoading(false)
                   notify(notifyStatus.SUCCESS,"New  Employee Save ")
+                  setTimeout(function() {
+                      router.replace("/login/page")
+                  }, 2500);
           }else if(response?.data?.code === 400){
                   setLoading(false)
                   notify(notifyStatus.ERROR,"Failed save employee please try again")
@@ -160,9 +163,9 @@ export default function SignUp() {
         <div  style={{height:'92vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
             <div className='  box-shadow-type-one' style={{height:'500px',width:'700px',borderRadius:'15px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'space-around'}}>
                      <span style={{fontSize:'30px',fontFamily:'initial',fontWeight:'700',color:'#464755'}} >Sign up as a employee</span>
-                <div style={{width:'80%',height:'260px'}}>        
-                    <Carousel width={"620px"}   selectedItem={slideIndex} autoPlay={false} showStatus={false} showIndicators={false} >
-                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"280px",padding:'20px'}}>
+                <div style={{width:'80%',height:'350px'}}>        
+                    <Carousel width={"650px"}   selectedItem={slideIndex} autoPlay={false} showStatus={false} showIndicators={false} >
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"350px",padding:'20px'}}>
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                    
                                     <TextField width={"420px"} height={"40px"} placeholder={"Name"} borderRadius={"10px"} borderColor={"red"}   warnText={TEXT} value={name.value} RegXtype={"text"}  type={"text"} onChange={(e)=>{setName({value:e.value,bool:e.bool})}}/>
@@ -173,7 +176,7 @@ export default function SignUp() {
                            
                             </div>   
                         </div>
-                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"300px",padding:'20px'}}>
+                        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',width:'90%',alignItems:'center',height:"350px",padding:'20px'}}>
                             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'flex-start',height:'100%'}}>
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
                                       
