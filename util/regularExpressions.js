@@ -24,7 +24,7 @@ export const USER_NAME = (value) => {
 
 
 export const PASSWORD = (value) => {
-      console.log(value , " cccccccccccc ");
+
     if (value.match(/^[A-Za-z0-9!@#$%^&*()\-+=<>?]{5,10}$/) && value.length >= 5) {
         return true
     } else {
@@ -38,7 +38,7 @@ export const TEL = (value) => {
     if(value.length == 0){
         false
     }
-    else if (value.match(/^\d{8}$/) && value.length > 0) {
+    else if (value.match(/^\d{9}$/)) {
          return true
     } else {
          return false
