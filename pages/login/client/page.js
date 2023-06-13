@@ -23,6 +23,7 @@ const listData = [
  function Main() {
 
       const [selectedIndex, setSelectedIndex] = useState(0)
+      const [selectedLabel, setSelectedLabel] = useState('Profile Info')
 
  useEffect(()=>{
      
@@ -79,7 +80,7 @@ const listData = [
                                return(
                                 <li key={index}>
                                   <div style={{width:'100%',height:'40px',position:'relative',backgroundColor:'#F2EFFE',cursor:'pointer'}}  
-                                   onClick={(e)=>{ setSelectedIndex(index) }}
+                                   onClick={(e)=>{ setSelectedIndex(index); setSelectedLabel(data[2])}}
                                   >
                                         <div style={{position:'absolute',left:'0',height:'100%',width:'4px',backgroundColor:'#6149D8',display:isSelected ? 'flex' : 'none'}}/>
                                         <div style={{display:'flex',flexDirection:'row',width:'100%',alignItems:'center',justifyContent:'space-around',height:'100%'}}>
@@ -93,8 +94,8 @@ const listData = [
                            }
                        </ul>
                   </div>
-                  <div style={{border:'2px solid red',width:'100%',height:"85vh",display:'felx',flexDirection:'row'}}>
-                   
+                  <div style={{border:'2px solid #6149D8',width:'100%',height:"85vh",display:'felx',flexDirection:'row' ,borderRadius:'10px',position:'relative'}}>
+                            <label style={{position:'absolute',left:'10px',top:'-37px',fontSize:'25px',fontFamily:'Inter',color:'#464755',fontWeight:'500'}}>{selectedLabel}</label>
                   </div>
              </div>
         </div>
