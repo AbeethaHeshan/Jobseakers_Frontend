@@ -17,7 +17,7 @@ import { Oval } from  'react-loader-spinner'
 import { NEW_EMPLOYEE } from '@/service/api-endpoints/employee';
 import Loarder from '@/components/Loarder';
 import JobTypeDropDrown from '@/components/jobTypeDropDrown';
-import { CONFIRM_PASSWORD, EMAIL, PASSWORD, TEL, TEXT, USER_NAME } from '@/util/regXConstents';
+import { CONFIRM_PASSWORD, EMAIL, PASSWORD, TEL, TEXT, TEXT_NUMBER, USER_NAME } from '@/util/regXConstents';
 
 
 const sliderMaxindex = 2;
@@ -187,13 +187,13 @@ export default function SignUp() {
                                     </div>
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"} warnText={TEXT} value={street.value} RegXtype={"text"} type={"text"}   borderRadius={"10px"} onChange={(e)=>{setStreet({value:e.value,bool:e.bool})}}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"} warnText={TEXT_NUMBER} value={street.value} RegXtype={"textAndNum"} type={"text"}   borderRadius={"10px"} onChange={(e)=>{setStreet({value:e.value,bool:e.bool})}}/>
                                             <TextField width={"200px"} height={"40px"} placeholder={"City"}  warnText={TEXT} value={city.value} RegXtype={"text"} type={"text"}  borderRadius={"10px"} onChange={(e)=>{setCity({value:e.value,bool:e.bool})}}/>
                                     </div>
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
-                                            <TextField width={"200px"} height={"40px"} placeholder={"State"} warnText={TEXT} value={state.value} RegXtype={"text"} type={"text"}    borderRadius={"10px"} onChange={(e)=>{setState({value:e.value,bool:e.bool})}}/>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"} warnText={TEXT} value={zip.value} RegXtype={"text"} type={"text"}  borderRadius={"10px"} onChange={(e)=>{setZip({value:e.value,bool:e.bool})}} />
+                                            <TextField width={"200px"} height={"40px"} placeholder={"State"} warnText={TEXT_NUMBER} value={state.value} RegXtype={"text"} type={"textAndNum"}    borderRadius={"10px"} onChange={(e)=>{setState({value:e.value,bool:e.bool})}}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"} warnText={TEXT_NUMBER} value={zip.value} RegXtype={"text"} type={"textAndNum"}  borderRadius={"10px"} onChange={(e)=>{setZip({value:e.value,bool:e.bool})}} />
                                     </div>
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >

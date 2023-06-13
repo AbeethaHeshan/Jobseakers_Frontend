@@ -1,9 +1,10 @@
 import React from 'react'
-
-export default function Main() {
+import checkAuthentication from '@/components/HOC/WithAuth'
+ function Main() {
   return (
     <div>
         Employee
     </div>
   )
 }
+export default checkAuthentication (Main);
