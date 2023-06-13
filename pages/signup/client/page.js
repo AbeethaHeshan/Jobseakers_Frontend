@@ -201,7 +201,7 @@ export default function SignUp() {
              
       }
    
-    
+     //disable = {get_array_lendth_and_value_ok(booleanValues)} 
       const changeSlider = () =>{
            if(slideIndex === 0){
                  return  <Button title={"Create A New Account"} width={"50%"} height={"35px"} color={"white"}   backgroundColor={"#6149D8"}  onClick={()=>handleNextSlide()} />
@@ -209,7 +209,7 @@ export default function SignUp() {
                 return(
                     <div style={{width:'80%',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
                         <Button title={"Previous"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} onClick={()=>handlePrevioustSlide()} />
-                        <Button title={"Register"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} disable = {get_array_lendth_and_value_ok(booleanValues)} onClick={(e)=>{handleNextSlide();  saveDetails() }} />
+                        <Button title={"Register"} width={"25%"} height={"25px"} color={"white"} backgroundColor={"#6149D8"} onClick={(e)=>{handleNextSlide();  saveDetails() }} />  
                    </div>
                 )
            }else{
