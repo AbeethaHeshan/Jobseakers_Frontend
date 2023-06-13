@@ -34,6 +34,7 @@ export default function Login() {
       const response =  await httpPOST(BASE_URL+AUTH , data, 'application/json',headers);   
       
       if(response?.status === 200){
+        console.log(response.data);
         setLoading(false);
         if(response?.data?.userRole === "EMPLOYEE"){
               
@@ -82,7 +83,6 @@ export default function Login() {
               setLoading(false);
               localStorage.clear();
               notify(notifyStatus.ERROR,"Failed to login; Try again ")
-
           
       }else{
               setLoading(false);

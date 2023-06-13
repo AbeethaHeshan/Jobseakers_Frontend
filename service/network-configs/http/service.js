@@ -48,10 +48,11 @@ export const httpGET = async (url,headers) => {
 }
 
 const handleSuccessPath = (response) => {
+     console.log(response.data , " res  ");
     if (response.status === REQUEST_SUCCESS || response.status === REQUEST_SUCCESS_OTHER) {
         responseData.message =  response?.data?.message
         responseData.status  =  response?.data?.code
-        responseData.data    =  response?.data
+        responseData.data    =  response?.data?.data
         responseData.actionType = actionTypes.SUCCESS_ACTION
         return responseData;
     } else {

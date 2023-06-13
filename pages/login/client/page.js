@@ -5,7 +5,9 @@ import { BASE_URL } from '@/service/network-configs/http/basicConfig';
 import { GET_CLIENT } from '@/service/api-endpoints/client';
 import { getUserCredentialsFromLocalStorage } from '@/util/storage';
 import Image from 'next/image';
-
+import Loarder from '@/components/Loarder';
+import Toaster from '@/components/Toaster';
+import { notifyStatus } from '@/util/notify';
 
 const listData = [
     ["/images/svg/clientMenu/purple/1.svg","/images/svg/clientMenu/white/1.svg","Profile Info"],
@@ -24,11 +26,13 @@ const listData = [
 
       const [selectedIndex, setSelectedIndex] = useState(0)
       const [selectedLabel, setSelectedLabel] = useState('Profile Info')
+      const [clientDetails, setDetails] = useState({})
+      const [isLoading, setLoading] = useState(false)
 
  useEffect(()=>{
      
     async function getClient(){
-
+             setLoading(true)
         //  const refresh_token = getUserCredentialsFromLocalStorage()?.refresh_token;
         //  const access_token = getUserCredentialsFromLocalStorage()?.access_token;
         //  const userId = getUserCredentialsFromLocalStorage()?.userId;
@@ -43,8 +47,21 @@ const listData = [
          }
 
          const response =  await httpGET(BASE_URL+GET_CLIENT,headers);
-
-         console.log(response);
+         if(response.status === 200){
+               setLoading(false)
+               console.log(response.data , " vvvvv ");
+               setDetails(response.data)
+              
+         }else if (response.status >= 400){
+              setLoading(false)
+              notify(notifyStatus.ERROR, response.message);
+         }else if (response.status === 401){
+               setLoading(false)
+         }else{
+               notify(notifyStatus.ERROR, response.message);
+               setLoading(false)
+         }
+         
      }
 
       getClient()
@@ -63,8 +80,8 @@ const listData = [
 
                 </div>
                 <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-around',columnGap:'10px'}}>
-                    <label>Amal Namal </label>
-                    <div style={{width:'35px',height:'35px',borderRadius:'100%',border:'2px solid gray',marginRight:'30px'}}/>
+                    <label>{clientDetails?.owner}</label>
+                    <div style={{width:'35px',height:'35px',borderRadius:'100%',border:'2px solid gray',marginRight:'30px',backgroundImage:`uri${clientDetails?.profileImageUri}`,backgroundRepeat:'no-repeat'}}/>
                 </div>
           </div>
         </div>
@@ -100,7 +117,9 @@ const listData = [
              </div>
         </div>
 
-
+         
+         <Loarder  visible={isLoading} />
+         <Toaster/>
 
     </div>
   )

@@ -21,7 +21,7 @@ export default function BtnDropDown(props) {
            console.log(response);
            if(response?.status === 200 ) {
                       console.log("response.data")
-                      setData(response?.data?.data)
+                      setData(response?.data)
            }else if (response?.status >= 400){
                       notify(notifyStatus.ERROR,response.message)
            }else if (response?.status >= 403){
