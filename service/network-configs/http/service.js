@@ -40,7 +40,6 @@ export const httpGET = async (url,headers) => {
 
     return  await axios.get(url,requestConfig(headers))
         .then((response) => {
-            console.log("Success");
             return  handleSuccessPath(response)
         })
         .catch((error) => {
@@ -49,11 +48,10 @@ export const httpGET = async (url,headers) => {
 }
 
 const handleSuccessPath = (response) => {
-    console.log(response , " ccccccccccccccc ");
     if (response.status === REQUEST_SUCCESS || response.status === REQUEST_SUCCESS_OTHER) {
-        responseData.message =  response.data.message
-        responseData.status  =  response.data.code
-        responseData.data    =  response.data.data
+        responseData.message =  response?.data?.message
+        responseData.status  =  response?.data?.code
+        responseData.data    =  response?.data
         responseData.actionType = actionTypes.SUCCESS_ACTION
         return responseData;
     } else {

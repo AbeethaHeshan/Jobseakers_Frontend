@@ -30,7 +30,7 @@ export default function Login() {
          'Content-Type': 'application/json', 
       }
       const response =  await httpPOST(BASE_URL+AUTH , data, 'application/json',headers);   
-       console.log(response);
+      
       if(response?.status === 200){
         setLoading(false);
         if(response?.data?.userRole === "EMPLOYEE"){
