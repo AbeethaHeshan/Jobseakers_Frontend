@@ -30,8 +30,8 @@ export default function Login() {
          'Content-Type': 'application/json', 
       }
       const response =  await httpPOST(BASE_URL+AUTH , data, 'application/json',headers);   
-
-      if(response?.status === 200){
+       console.log(response);
+      if(response?.data?.code === 200){
         setLoading(false);
         if(response?.data?.userRole === "EMPLOYEE"){
               
@@ -63,19 +63,17 @@ export default function Login() {
 
             router.replace("/login/client/page")
         }
-      }else if(response?.status >= 400){
+      }else if(response?.data?.code >= 400){
               setLoading(false);
               localStorage.clear();
-              setTimeout(function() {
-                     notify(notifyStatus.ERROR,"Failed to login; Try again ")
-            }, 1000);
+              notify(notifyStatus.ERROR,"Failed to login; Try again ")
+
           
       }else{
               setLoading(false);
               localStorage.clear();
-              setTimeout(function() {
-                notify(notifyStatus.ERROR,"Failed to login; Try again ")
-              }, 1000);
+              notify(notifyStatus.ERROR,"Failed to login; Try again ")
+          
             
       } 
   }
