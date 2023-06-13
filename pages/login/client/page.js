@@ -7,7 +7,8 @@ import { getUserCredentialsFromLocalStorage } from '@/util/storage';
 import Image from 'next/image';
 import Loarder from '@/components/Loarder';
 import Toaster from '@/components/Toaster';
-import { notifyStatus } from '@/util/notify';
+import { notify, notifyStatus } from '@/util/notify';
+import ProfileInfo from '@/components/clientMenu/profileInfo';
 
 const listData = [
     ["/images/svg/clientMenu/purple/1.svg","/images/svg/clientMenu/white/1.svg","Profile Info"],
@@ -24,10 +25,36 @@ const listData = [
 
  function Main() {
 
-      const [selectedIndex, setSelectedIndex] = useState(0)
-      const [selectedLabel, setSelectedLabel] = useState('Profile Info')
-      const [clientDetails, setDetails] = useState({})
-      const [isLoading, setLoading] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [selectedLabel, setSelectedLabel] = useState('Profile Info')
+  const [clientDetails, setDetails] = useState({})
+  const [isLoading, setLoading] = useState(false)
+
+  
+  const onChangeView  = (index) =>{
+         
+          switch(index){
+               case 0 :
+                return(<ProfileInfo props={clientDetails}/>);break;
+               case 1 :
+                return( <div>B</div>);break;
+               case 2 : 
+                return(<div></div>);break;
+               case 3 :
+                return(<div></div>);break;
+               case 4 : 
+                return( <div></div>);break;
+               default:'no';
+          }
+        
+
+  } 
+  
+
+
+
+
+
 
  useEffect(()=>{
      
@@ -52,7 +79,7 @@ const listData = [
                console.log(response.data , " vvvvv ");
                setDetails(response.data)
               
-         }else if (response.status >= 400){
+         }else if (response.status === 400){
               setLoading(false)
               notify(notifyStatus.ERROR, response.message);
          }else if (response.status === 401){
@@ -81,7 +108,7 @@ const listData = [
                 </div>
                 <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-around',columnGap:'10px'}}>
                     <label>{clientDetails?.owner}</label>
-                    <div style={{width:'35px',height:'35px',borderRadius:'100%',border:'2px solid gray',marginRight:'30px',backgroundImage:`uri${clientDetails?.profileImageUri}`,backgroundRepeat:'no-repeat'}}/>
+                    <div style={{width:'35px',height:'35px',borderRadius:'100%',border:'2px solid gray',marginRight:'30px',backgroundImage:`uri(${clientDetails?.profileImageUri})`,backgroundRepeat:'no-repeat'}}/>
                 </div>
           </div>
         </div>
@@ -111,8 +138,11 @@ const listData = [
                            }
                        </ul>
                   </div>
-                  <div style={{border:'2px solid #6149D8',width:'100%',height:"85vh",display:'felx',flexDirection:'row' ,borderRadius:'10px',position:'relative'}}>
-                            <label style={{position:'absolute',left:'10px',top:'-37px',fontSize:'25px',fontFamily:'Inter',color:'#464755',fontWeight:'500'}}>{selectedLabel}</label>
+                  <div style={{width:'100%',height:"85vh",display:'felx',flexDirection:'row' ,borderRadius:'10px',position:'relative'}}>
+                            <label style={{position:'absolute',left:'10px',top:'-40px',fontSize:'25px',fontFamily:'Inter',color:'#464755',fontWeight:'500'}}>{selectedLabel}</label>
+                            <div style={{height:'inherit'}}>
+                                {onChangeView(selectedIndex)}
+                            </div>
                   </div>
              </div>
         </div>
