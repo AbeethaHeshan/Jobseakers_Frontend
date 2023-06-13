@@ -13,8 +13,11 @@ export const getUserCredentialsFromLocalStorage = () => {
     const credentials = localStorage.getItem('user');
     if (credentials) {
 
-        const { access_token, refresh_token, userRole, userId } = JSON.parse(credentials);
-
+        const data = JSON.parse(credentials);
+        const refresh_token = data?.refresh_token;
+        const access_token = data?.access_token;
+        const userId = data?.userId;
+        const userRole = data?.userRole;
         return { access_token, refresh_token, userRole, userId };
     }
     return null;

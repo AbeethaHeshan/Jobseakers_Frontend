@@ -5,7 +5,7 @@ import Button from '../../components/button'
 import TextField from '../../components/textField';
 import AuthField from '../../components/authField';
 import { useRouter } from 'next/navigation';
-import { httpPOST } from '@/service/network-configs/http/service';
+import { httpGET, httpPOST } from '@/service/network-configs/http/service';
 import { BASE_URL } from '@/service/network-configs/http/basicConfig';
 import { AUTH } from '@/service/api-endpoints/auth';
 import Loarder from '@/components/Loarder';
@@ -13,6 +13,8 @@ import Toaster from '@/components/Toaster';
 import { headers } from 'next/dist/client/components/headers';
 import { notify, notifyStatus } from '@/util/notify';
 import Cookies from 'js-cookie';
+import { GET_CLIENT } from '@/service/api-endpoints/client';
+import { getUserCredentialsFromLocalStorage } from '@/util/storage';
 export default function Login() {
   const router = useRouter();
    const [userName, setUserName] = useState({value:'',bool:false});
@@ -47,21 +49,34 @@ export default function Login() {
 
             Cookies.set("user", credentials, { expires: 7 });  //  expires in 7 days
            
-            router.replace("/login/employee/page")
+             router.replace("/login/employee/page")
         }else if (response?.data?.userRole === "CLIENT"){
               
               const credentials = {
-                access_token : response.data.access_token,
-                refresh_token : response.data.refresh_token,
-                userRole : response.data.userRole,
-                userId : response.data.userId     
-            }
+                access_token: response.data.access_token,
+                refresh_token: response.data.refresh_token,
+                userRole: response.data.userRole,
+                userId: response.data.userId
+              };
+        
+              let headers = {
+                'Authorization': `Bearer ${credentials.access_token}`,
+                "userId": credentials.userId,
+                "role": credentials.userRole,
+              };
+        
+              const clientResponse = await httpGET(BASE_URL + GET_CLIENT, headers);
 
-            localStorage.setItem('user', JSON.stringify(credentials));  
+              if (clientResponse?.status === 200) {
+                localStorage.setItem('user', JSON.stringify(credentials));
+                Cookies.set("user", credentials, { expires: 7 });
+                router.replace("/login/client/page");
+              } else {
+                setLoading(false);
+                localStorage.clear();
+                notify(notifyStatus.INFO, response.message);
+              }
 
-            Cookies.set("user", credentials, { expires: 7 });  //  expires in 7 days
-
-            router.replace("/login/client/page")
         }
       }else if(response?.status >= 400){
               setLoading(false);
@@ -76,9 +91,9 @@ export default function Login() {
                  
       } 
   }
-
    useEffect(()=>{
-        localStorage.clear();
+        
+
    },[])
 
   return (

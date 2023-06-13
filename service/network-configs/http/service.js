@@ -61,6 +61,7 @@ const handleSuccessPath = (response) => {
 }
 
 const handleErrorPath = (error) => {
+    console.log(error , " vvvvvv ");
     if (error.response.status === 400) {
         responseData.message = error.response.data.message
         responseData.status  = error.response.data.code
@@ -72,10 +73,18 @@ const handleErrorPath = (error) => {
        responseData.status = error.response.data.code
        responseData.data = error.response.data.data
        responseData.actionType = actionTypes.FAILED_ACTION
-       responseData.message = "AccessTokenExpired"
+       responseData.message = error.response.data.message
        return  responseData
 
-    }else if(error.response.status === SERVER_ERROR){
+    }else if(error.response.status === REQUEST_FORBIDDON){
+        responseData.status = error.response.data.code
+        responseData.data = error.response.data.data
+        responseData.actionType = actionTypes.FAILED_ACTION
+        responseData.message = error.response.data.message
+        return  responseData
+ 
+     }
+    else if(error.response.status === SERVER_ERROR){
         responseData.message = error.response.data.message
         responseData.status  = error.response.data.code
         responseData.data    = error.response.data.data
