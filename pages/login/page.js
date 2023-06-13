@@ -66,11 +66,16 @@ export default function Login() {
       }else if(response?.status >= 400){
               setLoading(false);
               localStorage.clear();
-              notify(notifyStatus.ERROR,"Failed to login; Try again ")
+              setTimeout(function() {
+                     notify(notifyStatus.ERROR,"Failed to login; Try again ")
+            }, 1000);
+          
       }else{
               setLoading(false);
               localStorage.clear();
-              notify(notifyStatus.ERROR,"Failed to login; Try again")
+              setTimeout(function() {
+                notify(notifyStatus.ERROR,"Failed to login; Try again ")
+              }, 1000);
             
       } 
   }
