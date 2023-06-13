@@ -3,6 +3,7 @@ import checkAuthentication from '@/components/HOC/WithAuth'
 import { httpGET, httpPOST } from '@/service/network-configs/http/service'
 import { BASE_URL } from '@/service/network-configs/http/basicConfig';
 import { GET_CLIENT } from '@/service/api-endpoints/client';
+import { getUserCredentialsFromLocalStorage } from '@/util/storage';
 
  function Main() {
 
@@ -16,16 +17,17 @@ import { GET_CLIENT } from '@/service/api-endpoints/client';
          const userId = getUserCredentialsFromLocalStorage()?.userId;
          const userRole = getUserCredentialsFromLocalStorage()?.userRole;
 
-        
+          console.log(access_token ,userRole , userId);
 
          const headers = {
-            "Authorization":`Bearer ${access_token}`,
+            'Authorization':`Bearer ${access_token}`,
             "userId":userId,
             "role":userRole,
-           
          }
 
          const response =  await httpGET(BASE_URL+GET_CLIENT,headers);
+
+         console.log(response);
      }
 
       getClient()

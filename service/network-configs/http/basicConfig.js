@@ -8,12 +8,11 @@ export const SERVER_ERROR = 500
 
 export const BASE_URL = "http://localhost:8080/api/v1/"
 
-export const requestConfig = ({headers,contentType})=> {
+export const requestConfig = (headers)=> {
 
     return {
         headers:{...headers,
             'Accept': 'application/json',
-            'Content-Type': contentType,
         }
 
     }

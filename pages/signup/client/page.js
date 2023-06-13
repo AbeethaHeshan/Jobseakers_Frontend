@@ -182,7 +182,7 @@ export default function SignUp() {
           };
            
           const response = await httpPOST(url,clientDetails,'application/json',headers)    
-          if(response?.data?.code === 200){
+          if(response?.status === 200){
                   setLoading(false);
                   setEmptyAllField();
                   notify(notifyStatus.SUCCESS,"New  Client Save ")
@@ -190,12 +190,12 @@ export default function SignUp() {
                     router.replace("/login/page")
                 }, 2500);
                 
-          }else if(response?.data?.code >= 400){
+          }else if(response?.status >= 400){
                   setLoading(false);
-                  notify(notifyStatus.SUCCESS,"Failed save client please try again")
+                  notify(notifyStatus.ERROR,"Failed save client please try again")
           }else{
                   setLoading(false);
-                  notify(notifyStatus.SUCCESS,"Failed save client please try again")
+                  notify(notifyStatus.ERROR,"Failed save client please try again")
                   setEmptyAllField();
           } 
              
@@ -263,7 +263,7 @@ export default function SignUp() {
 
                                             <TextField width={"420px"} height={"40px"} placeholder={"Business Registration Number"}  borderRadius={"10px"}  warnText={TEXT} value={registrationName.value} RegXtype={"text"}  onChange={(e)=>{setRegistrationName({value:e.value,bool:e.bool}); }}/> 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}}>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"}  warnText={TEXT_NUMBER} value={street.value} RegXtype={"text"} onChange={(e)=>{setStreet({value:e.value,bool:e.bool});}}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"Street"}  borderRadius={"10px"}  warnText={TEXT_NUMBER} value={street.value} RegXtype={"textAndnum"} onChange={(e)=>{setStreet({value:e.value,bool:e.bool});}}/>
                                             <TextField width={"200px"} height={"40px"} placeholder={"City"}  borderRadius={"10px"}  warnText={TEXT} value={city.value} RegXtype={"text"}  onChange={(e)=>{setCity({value:e.value,bool:e.bool}); }}/>
                                     </div>
 

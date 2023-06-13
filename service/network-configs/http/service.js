@@ -49,10 +49,11 @@ export const httpGET = async (url,headers) => {
 }
 
 const handleSuccessPath = (response) => {
+    console.log(response , " ccccccccccccccc ");
     if (response.status === REQUEST_SUCCESS || response.status === REQUEST_SUCCESS_OTHER) {
         responseData.message =  response.data.message
-        responseData.status  =  response.status
-        responseData.data    =  response.data
+        responseData.status  =  response.data.code
+        responseData.data    =  response.data.data
         responseData.actionType = actionTypes.SUCCESS_ACTION
         return responseData;
     } else {
@@ -64,22 +65,22 @@ const handleSuccessPath = (response) => {
 const handleErrorPath = (error) => {
     if (error.response.status === 400) {
         responseData.message = error.response.data.message
-        responseData.status  = error.response.status
-        responseData.data    = error.response.data
+        responseData.status  = error.response.data.code
+        responseData.data    = error.response.data.data
         responseData.actionType = actionTypes.FAILED_ACTION
         return  responseData
 
     } else if(error.response.status === REQUEST_UNAUTHORIZED){
-       responseData.status = error.response.status
-       responseData.data = error.response.data
+       responseData.status = error.response.data.code
+       responseData.data = error.response.data.data
        responseData.actionType = actionTypes.FAILED_ACTION
        responseData.message = "AccessTokenExpired"
        return  responseData
 
     }else if(error.response.status === SERVER_ERROR){
         responseData.message = error.response.data.message
-        responseData.status  = error.response.status
-        responseData.data    = error.response.data
+        responseData.status  = error.response.data.code
+        responseData.data    = error.response.data.data
         responseData.actionType = actionTypes.FAILED_ACTION
         return responseData
     }

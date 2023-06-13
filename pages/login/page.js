@@ -31,7 +31,7 @@ export default function Login() {
       }
       const response =  await httpPOST(BASE_URL+AUTH , data, 'application/json',headers);   
        console.log(response);
-      if(response?.data?.code === 200){
+      if(response?.status === 200){
         setLoading(false);
         if(response?.data?.userRole === "EMPLOYEE"){
               
@@ -54,16 +54,16 @@ export default function Login() {
                 access_token : response.data.access_token,
                 refresh_token : response.data.refresh_token,
                 userRole : response.data.userRole,
-                userId : response.data.userId
+                userId : response.data.userId     
             }
 
-            localStorage.setItem('user', JSON.stringify(credentials));
+            localStorage.setItem('user', JSON.stringify(credentials));  
 
             Cookies.set("user", credentials, { expires: 7 });  //  expires in 7 days
 
             router.replace("/login/client/page")
         }
-      }else if(response?.data?.code >= 400){
+      }else if(response?.status >= 400){
               setLoading(false);
               localStorage.clear();
               notify(notifyStatus.ERROR,"Failed to login; Try again ")
@@ -73,8 +73,7 @@ export default function Login() {
               setLoading(false);
               localStorage.clear();
               notify(notifyStatus.ERROR,"Failed to login; Try again ")
-          
-            
+                 
       } 
   }
 

@@ -121,13 +121,13 @@ export default function SignUp() {
            
           const response = await httpPOST(url,employeeDetails,'application/json',headers)
         
-          if(response?.data?.code === 200){
+          if(response?.status === 200){
                   setLoading(false)
                   notify(notifyStatus.SUCCESS,"New  Employee Save ")
                   setTimeout(function() {
                       router.replace("/login/page")
                   }, 2500);
-          }else if(response?.data?.code === 400){
+          }else if(response?.status === 400){
                   setLoading(false)
                   notify(notifyStatus.ERROR,"Failed save employee please try again")
           }else{  
@@ -192,8 +192,8 @@ export default function SignUp() {
                                     </div>
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
-                                            <TextField width={"200px"} height={"40px"} placeholder={"State"} warnText={TEXT_NUMBER} value={state.value} RegXtype={"text"} type={"textAndNum"}    borderRadius={"10px"} onChange={(e)=>{setState({value:e.value,bool:e.bool})}}/>
-                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"} warnText={TEXT_NUMBER} value={zip.value} RegXtype={"text"} type={"textAndNum"}  borderRadius={"10px"} onChange={(e)=>{setZip({value:e.value,bool:e.bool})}} />
+                                            <TextField width={"200px"} height={"40px"} placeholder={"State"} warnText={TEXT_NUMBER} value={state.value} RegXtype={"textAndNum"} type={"text"}    borderRadius={"10px"} onChange={(e)=>{setState({value:e.value,bool:e.bool})}}/>
+                                            <TextField width={"200px"} height={"40px"} placeholder={"ZipCode"} warnText={TEXT_NUMBER} value={zip.value} RegXtype={"textAndNum"} type={"text"}  borderRadius={"10px"} onChange={(e)=>{setZip({value:e.value,bool:e.bool})}} />
                                     </div>
 
                                     <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
