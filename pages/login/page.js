@@ -52,7 +52,7 @@ export default function Login() {
            
              router.replace("/login/employee/page")
         }else if (response?.data?.userRole === "CLIENT"){
-              
+              console.log("CLIENT LOG");
               const credentials = {
                 access_token: response.data.access_token,
                 refresh_token: response.data.refresh_token,
@@ -91,9 +91,8 @@ export default function Login() {
                  
       } 
   }
-   useEffect(()=>{
-        
-
+   useEffect(()=>{     
+    localStorage.clear();
    },[])
 
   return (

@@ -16,13 +16,13 @@ const checkAuthentication = (WrappedComponent) => {
 
             //!userRole || !userId || !refresh_token || !access_token
             if (!getUserCredentialsFromLocalStorage()?.userRole || !getUserCredentialsFromLocalStorage()?.userId || !getUserCredentialsFromLocalStorage()?.refresh_token || !getUserCredentialsFromLocalStorage()?.access_token) {   
-                // Redirect to the login page if the password is not found
+                // Redirect to the login page if  not found
                 localStorage.clear();
                 router.replace('/login/page');
             } else if(getUserCredentialsFromLocalStorage()?.access_token){
                  const decoded_access_token = jwt_decode(getUserCredentialsFromLocalStorage()?.access_token);
                  const decoded_refresh_token = jwt_decode(getUserCredentialsFromLocalStorage()?.refresh_token);
-                  if (decoded_access_token.exp * 1000 < Date.now() || decoded_refresh_token.exp * 1000 < Date.now()  ) {
+                  if (decoded_refresh_token.exp * 1000 < Date.now()  ) {
                     localStorage.clear();
                     router.replace('/login/page');
                   }else{
