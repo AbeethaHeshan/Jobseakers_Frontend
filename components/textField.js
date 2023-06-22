@@ -39,7 +39,7 @@ export default function TextField(props) {
       padding: '5px',
       width: props.width,
       height: props.height,
-      border: validator()?.bool  && props.value.length != 0  ? '1px solid red' : props?.value?.length == 0   ? '' : '1px solid green',
+      border: validator()?.bool  && props.value.length != 0  ? '1px solid red' : props?.value?.length === 0   ? '' : '1px solid green',
       paddingLeft:'18px',
       paddingRight:'10px',
     };

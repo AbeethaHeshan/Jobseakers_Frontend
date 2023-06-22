@@ -12,6 +12,9 @@ import ProfileInfo from '@/components/clientMenu/profileInfo';
 import { useRouter } from 'next/navigation';
 import Advertiesment from '@/components/clientMenu/advertiesment';
 import { generateToken } from '@/service/network-configs/http/generateToken';
+import Employees from '@/components/clientMenu/Employees';
+import Tasks from '@/components/clientMenu/Tasks';
+import Teams from '@/components/clientMenu/Teams';
 const listData = [
     ["/images/svg/clientMenu/purple/1.svg","/images/svg/clientMenu/white/1.svg","Profile Info"],
     ["/images/svg/clientMenu/purple/2.svg","/images/svg/clientMenu/white/2.svg","Teams"],
@@ -40,11 +43,11 @@ const listData = [
                case 0 :
                 return(<ProfileInfo props={clientDetails}/>);break;
                case 1 :
-                return( <div>B</div>);break;
+                return( <Teams/> );break;
                case 2 : 
-                return(<div></div>);break;
+                return(<Employees/>);break;
                case 3 :
-                return(<div></div>);break;
+                return(<Tasks/>);break;
                case 4 : 
                 return(<Advertiesment />);break;
                default:'no';
