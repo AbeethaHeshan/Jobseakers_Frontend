@@ -6,19 +6,19 @@ export  const notify = (type,message) => {
         switch(type){
             case "success" : return( toast.success(message, {
                 position: toast.POSITION.TOP_CENTER
-                })); ;
+                }));
 
             case "error" : return(toast.error(message, {
                 position: toast.POSITION.TOP_CENTER
-                })); ;
+                }));
 
             case "warn" :  return(toast.warn(message, {
                 position: toast.POSITION.TOP_CENTER
-                })); ;
+                }));
 
             case "info" :   return(toast.info(message, {
                 position: toast.POSITION.TOP_CENTER
-                }));  
+                }));
         }
 };
 

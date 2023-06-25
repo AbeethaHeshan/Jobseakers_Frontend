@@ -3,16 +3,12 @@ export const TEXT_ONLY = (value) =>{
      if(value.length === 0){
           false
      }
-    else if(value.match(/^[A-Za-z]+(?:\s+[A-Za-z]+)*$/) ){
-        return true;
-    }else{
-        return false;
-    }
+    else return !!value.match(/^[A-Za-z]+(?:\s+[A-Za-z]+)*$/);
 }
 
 
 export const USER_NAME = (value) => {
-    if(value.length == 0){
+    if(value.length === 0){
         false
     }
     else if (value.match(/^[A-z]+[^A-Za-z0-9]+[0-9]+$/)) {
@@ -34,7 +30,7 @@ export const PASSWORD = (value) => {
 
 
 export const TEL = (value) => {
-    //not include  +94  ex - 769140711 
+    //not include  +94  ex - 769140711
     if(value.length == 0){
         false
     }
@@ -47,7 +43,7 @@ export const TEL = (value) => {
 
 
 export const EMAIL = (value) => {
-    
+
     if(value.length == 0){
         false
     }
@@ -70,6 +66,17 @@ export const TEXT_NUMBER = (value) => {
     }
 }
 
+export const DOUBLE_INT = (value) => {
+    if(value.length == 0){
+        false
+    }
+    else if (value.match(/^\d+(\.\d+)?$/)) {
+        return true
+    } else {
+        return false
+    }
+}
+
 let obj = {
       text : '',
       bool : false
@@ -78,10 +85,10 @@ let obj = {
 export const checker = (method,value,text) =>{
     if(method(value)){
         obj.bool = false;
-        return  obj 
+        return  obj
    }else{
         obj.bool = true;
         obj.text = text;
-        return  obj 
+        return  obj
    }
 }

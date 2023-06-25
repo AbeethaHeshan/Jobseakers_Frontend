@@ -18,6 +18,7 @@ import { NEW_EMPLOYEE } from '@/service/api-endpoints/employee';
 import Loarder from '@/components/Loarder';
 import JobTypeDropDrown from '@/components/jobTypeDropDrown';
 import { CONFIRM_PASSWORD, EMAIL, PASSWORD, TEL, TEXT, TEXT_NUMBER, USER_NAME } from '@/util/regXConstents';
+import JobRoleType from '@/components/jobRoleType';
 
 
 const sliderMaxindex = 2;
@@ -32,8 +33,9 @@ export default function SignUp() {
     const fileInputRef2 = useRef(null);
 
     const [name, setName] = useState({value:'',bool:false});
-    const [jobType, setJobType] = useState({value:'',bool:false});
+    const [jobType, setJobType] = useState('');
     const [woekingType, setWorkingType] = useState({value:'',bool:false});
+    const [roleType, setRoleType] = useState({value:'',bool:false});
     const [email, setEmail] = useState({value:'',bool:false});
     const [userName, setUserName] = useState({value:'',bool:false});
     const [password, setPassword] = useState({value:'',bool:false});
@@ -46,7 +48,7 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState({value:'',bool:false});
     const [isLoding, setLoading] = useState(false);
     
-
+    
  
     const handleFileChangeProfile = (event) => {
   
@@ -101,11 +103,12 @@ export default function SignUp() {
               "zipCode": zip.value
             },
             "dateOfBirth": date.value,
-            "jobType": jobType.value,
+            "jobType": jobType,
             "workingType": woekingType.value,
             "profileImageUri": profileUrl.value,
             "email": email.value,
             "tel": tel.value,
+            "jobRoleType" : roleType.value,
             "userName": userName.value,
             "password": password.value
           });
@@ -182,7 +185,7 @@ export default function SignUp() {
                                       
                                         {/* <TextField width={"200px"} height={"40px"} placeholder={"BusinessType"}  borderRadius={"10px"}  /> */}
                                         
-                                        <BtnDropDown onChange={(e)=>{setJobType(e)}} width={"200px"}/>
+                                        <BtnDropDown onChange={(e)=>{setJobType(e);}} width={"200px"}/>
                                         <input type='date' style={{width:'200px',borderRadius:'10px'}} className='box-shadow-type-one' placeholder='date of birth' value={date.value}  onChange={(e)=>{setDate({value:e.value,bool:e.bool})}} />
                                     </div>
 
@@ -201,6 +204,12 @@ export default function SignUp() {
                                             <JobTypeDropDrown onChange={(value)=>{setWorkingType({value:value,bool:false})}} width={"200px"}/>
                                     </div>
                                      
+                                    <div style={{display:'flex', flexDirection : 'row',justifyContent:"space-between",columnGap:'20px'}} >
+                                    
+                                            <JobRoleType onChange={(value)=>{setRoleType({value:value,bool:false})}} catogary={jobType} width={"200px"}/>
+                                    </div>
+
+
                                     <div className='box-shadow-type-two'  style={{height:'70px',width:'100%',borderRadius:'10px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
 
                                              <div style={{width:'90%',display:'flex',alignItems:'center',justifyContent:'center',position:'relative',columnGap:'5px'}}>

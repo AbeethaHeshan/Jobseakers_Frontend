@@ -3,6 +3,7 @@ import Image from 'next/image'
 import MenuButton from '../MenuButton'
 import TransparentScreen from '../TransparentScreen'
 import CreateAds from './clientSubMenus/createAds'
+import ViewAds from './clientSubMenus/viewAds'
 export default function Advertiesment() {
   const[visible,setVisible]= useState({visible:false,item:''})
 
@@ -10,7 +11,7 @@ export default function Advertiesment() {
     switch(visible.item){
       case "createAds" : return <CreateAds/>;
       case "EmployeeRequests" : return "new emplyee job requests , we can approve or reject viwing their(employees) cvs";
-      case "LiveAds" : return "the ads we created ";
+      case "LiveAds" : return <ViewAds/>;
       default : "dsd";
     }
   }

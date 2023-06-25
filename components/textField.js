@@ -1,39 +1,42 @@
-import { EMAIL, TEL, TEXT_NUMBER, TEXT_ONLY, checker } from '@/util/regularExpressions';
+import {EMAIL, TEL, TEXT_NUMBER, TEXT_ONLY, checker, DOUBLE_INT} from '@/util/regularExpressions';
 import Image from 'next/image';
 import React from 'react'
 
 export default function TextField(props) {
-    
+
 
 
      let data = null
-     
-     
+
+
      const validator  =  () => {
-  
+
           if(props.RegXtype === "text"){
-         
+
             data  = checker(TEXT_ONLY,props.value,props.warnText)
             return data;
-             
+
           }else if (props.RegXtype === "email"){
-            
+
             data  =  checker(EMAIL,props.value,props.warnText)
             return data;
 
           }else if(props.RegXtype === "tel"){
-    
+
             data  =     checker(TEL,props.value,props.warnText)
             return data;
 
           }else if (props.RegXtype === "textAndNum"){
             data  =     checker(TEXT_NUMBER,props.value,props.warnText)
             return data;
+          }else if (props.RegXtype === "intDouble"){
+              data  =     checker(DOUBLE_INT,props.value,props.warnText)
+              return data;
           }
 
      }
 
-     
+
     const inputStyle = {
       borderRadius:props?.borderRadius!= null ? props.borderRadius : '100px',
       padding: '5px',
@@ -44,8 +47,8 @@ export default function TextField(props) {
       paddingRight:'10px',
     };
 
-      // ok / error 
-    
+      // ok / error
+
   return (
     <div style={{display:'flex',flexDirection:'column',rowGap:'2px',margin:'3px'}}>
          <input
@@ -62,6 +65,6 @@ export default function TextField(props) {
               <p style={{fontSize:'14px',color:'red',position:'relative',bottom:'1px',fontWeight:'350'}}>{validator()?.text}</p>
           </div>}
     </div>
-   
+
   )
 }

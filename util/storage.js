@@ -22,3 +22,11 @@ export const getUserCredentialsFromLocalStorage = () => {
     }
     return null;
   };
+
+export const  userCredentialsIsExists = () =>{
+     if(getUserCredentialsFromLocalStorage() != null){
+          return true;
+     }else{
+         return false
+     }
+}

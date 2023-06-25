@@ -2,16 +2,25 @@ import React,{useRef,useState} from 'react'
 import checkAuthentication from '@/components/HOC/WithAuth'
 import Image from 'next/image';
 import TextGroupContainer from '@/components/textGroupContainer';
+import MenuButton from '@/components/MenuButton';
  function Main() {
+
+  const[visible,setVisible]= useState({visible:false,item:''})
   const fileInputRefXT = useRef(null);
   const [profileUrl, setProfileUrl] = useState('')
   const handleClickProfile = () => {
     fileInputRefXT.current.click();
 };
 
+  function onChangeItems(){
+    switch(visible.item){
+      case "viewAll" : return "view all employees of the client have";
+      case "viewTeam" : return "view all employees of the client have as a teams ex- according to Hotel hotel has waiters,managers,cheff";
+      default : "dsd";
+    }
+  }
 
 const onChangeProfileImg = (event) => {
-
     try {
       const file = event.target.files[0];
       const fileUri = URL.createObjectURL(file);
@@ -75,6 +84,14 @@ const onChangeProfileImg = (event) => {
                                 <TextGroupContainer topic={"Job Type"} subTopic={"Tnformation Technology"} width={"200px"}/>
                                 <TextGroupContainer topic={"Catogary Type"} subTopic={"Grapgic designer"} width={"200px"}/>
                             </div>
+                </div>
+                <div style={{width:'89vw',borderRadius:'10px',margin:'5px'}}>
+                     <div style={{height:'100px',display:'flex',flexDirection:'row',columnGap:'10px'}}> 
+                          <MenuButton  title={"All Tasks"} imageUrl={"/images/common/People.png"} backgroundColor={"#F2EFFE"} onClick={()=>{setVisible({visible:true,item:'Tasks'}) }} />
+                          <MenuButton  title={"Completed Tesks"} imageUrl={"/images/common/People.png"} backgroundColor={"#F2EFFE"} onClick={()=>{setVisible({visible:true,item:'Completed'}) }} />
+                          <MenuButton  title={"Submit Task"} imageUrl={"/images/common/People.png"} backgroundColor={"#F2EFFE"} onClick={()=>{setVisible({visible:true,item:'Completed'}) }} />
+                     </div>
+
                 </div>
         </div>
 

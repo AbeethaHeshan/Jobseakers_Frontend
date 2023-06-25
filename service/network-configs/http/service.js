@@ -63,21 +63,21 @@ const handleSuccessPath = (response) => {
 
 const handleErrorPath = (error) => {
     console.log(error , " vvvvvv ");
-    if (error.response.status === 400) {
+    if (error?.response?.status === 400) {
         responseData.message = error.response.data.message
         responseData.status  = error.response.data.code
         responseData.data    = error.response.data.data
         responseData.actionType = actionTypes.FAILED_ACTION
         return  responseData
 
-    } else if(error.response.status === REQUEST_UNAUTHORIZED){
+    } else if(error?.response?.status === REQUEST_UNAUTHORIZED){
        responseData.status = error.response.data.code
        responseData.data = error.response.data.data
        responseData.actionType = actionTypes.FAILED_ACTION
        responseData.message = error.response.data.message
        return  responseData
 
-    }else if(error.response.status === REQUEST_FORBIDDON){
+    }else if(error?.response?.status === REQUEST_FORBIDDON){
         responseData.status = error.response.data.code
         responseData.data = error.response.data.data
         responseData.actionType = actionTypes.FAILED_ACTION
@@ -85,7 +85,7 @@ const handleErrorPath = (error) => {
         return  responseData
  
      }
-    else if(error.response.status === SERVER_ERROR){
+    else if(error?.response?.status === SERVER_ERROR){
         responseData.message = error.response.data.message
         responseData.status  = error.response.data.code
         responseData.data    = error.response.data.data
