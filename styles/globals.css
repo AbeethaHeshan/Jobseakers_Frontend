@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+.d{
+   background-color: red;
+}
+
+.box-shadow-type-one{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+input:focus, button:focus, textarea:focus, textarea:focus, input:active, button:active, textarea:active, input:active, input, textarea, button {
+  outline-style: none !important;
+  outline: none !important;
+  outline: 0 !important;
+  /* border: 1px solid #17a2b8; Turquoise color */
+}
+
+.box-shadow-type-two{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.box-shadow-type-Three{
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+
+
+input[type="radio"] {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #6149D8;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input[type="radio"]:checked {
+  border-color: #6149D8;
+  background-color: #6149D8;
+}
+
+.customUploader {
+  background-color: #b0a5ec;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: fit-content;
+  height: 30px;
+  border-radius: 10px;
+}
+
+
+/* buttonhovers */
+.btn-hover{
+    background-color: #6149D8;
+}
+
+.btn-hover :hover{
+     background-color: #4b37b3;   
+}

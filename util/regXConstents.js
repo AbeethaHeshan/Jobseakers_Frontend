@@ -1,0 +1,7 @@
+export const USER_NAME = "charactor must be letters,symboles,nums ex-:Amal@#43"
+export const PASSWORD = "password should be up to 5 charactors"
+export const CONFIRM_PASSWORD = "password does not match"
+export const TEXT = "only letters"
+export const TEL = "only numbers 76xxxxxx"
+export const EMAIL = "Invalid email" 
+export const TEXT_NUMBER = "only text and nmbers" 
